@@ -1,6 +1,6 @@
 {% load static %}
 {% load menu_tags %}
-{% load static cms_tags sekizai_tags  %}
+{% load static cms_tags sekizai_tags %}
 {% render_block "css" %}
 
 <!DOCTYPE html>
@@ -58,7 +58,7 @@
     {% render_block "css" %}
     {% block css %} {% endblock %}
 </head>
-{%  cms_toolbar  %}
+{% cms_toolbar %}
 {% render_block "js" %}
 
 <body>
@@ -770,7 +770,8 @@
                         <!-- End -->
 
                         <!-- Start::News & blogs -->
-                        {% if   perms.news.view_newsarticle or perms.news.view_newscategory or perms.blogs.view_blog or perms.blogs.view_blogcategory  %}
+                        {% if perms.news.view_newsarticle or perms.news.view_newscategory or perms.blogs.view_blog or
+                        perms.blogs.view_blogcategory %}
                         <li
                             class="slide has-sub {% if model_code == 'NewsArticle' or model_code == 'NewsCategory' or model_code == 'Blog' or model_code == 'BlogComment' or model_code == 'BlogCategory' %}  active open {% endif %}">
                             <a href="javascript:void(0);"
@@ -816,7 +817,8 @@
                         <!-- End -->
 
                         <!-- Start::Gallery -->
-                        {%  if perms.dashboard.view_galleryimage or perms.dashboard.view_galleryimage or perms.dashboard.view_gallerycategory %}
+                        {% if perms.dashboard.view_galleryimage or perms.dashboard.view_galleryimage or
+                        perms.dashboard.view_gallerycategory %}
                         <li
                             class="slide has-sub  {% if model_code == 'GalleryImage' or model_code == 'GalleryVideo' or model_code == 'GalleryCategory' %} active open {% endif %}">
                             <a href="javascript:void(0);"
@@ -992,12 +994,12 @@
                     <strong class="text-color-dark">
                         <a href="https://www.stransform.com/" target="_blank"
                             class="fw-semibold text-primary text-decoration-underline">
-                            OTech Engineering
+                            Malkaa Tech
                         </a>
 
                         <a href="https://otech.et/" target="_blank"
                             class="fw-semibold text-primary text-decoration-underline">
-                            & Technology Solutions
+                            Solutions
                         </a>
                     </strong>
                 </a>
