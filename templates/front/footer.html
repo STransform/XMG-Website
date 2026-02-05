@@ -1,14 +1,25 @@
-{% load static %} {% load i18n %}
+{% load static %}
+{% load i18n %}
 
-<!--  CSS    -->
+<!-- Fresh CSS Variant: Minimalist Geometric with Purple Accents -->
 {% block css %}
 <style>
+  :root {
+    --footer-bg: #121212;
+    --footer-accent: #a855f7;
+    /* Purple for innovative tech vibe */
+    --text-muted: #9ca3af;
+    --text-light: #f3f4f6;
+    --hover-glow: rgba(168, 85, 247, 0.3);
+  }
+
   footer {
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, var(--primary-black) 0%, #2c2c2c 100%);
+    background: var(--footer-bg);
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    /* Assuming modern sans-serif */
     position: relative;
-    overflow: hidden;
+    padding: 4rem 0 0;
   }
 
   footer::before {
@@ -16,295 +27,295 @@
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.1;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.02) 10px, rgba(255, 255, 255, 0.02) 20px);
+    opacity: 0.5;
   }
 
-  footer .container {
+  .footer-container {
     position: relative;
-    z-index: 2;
+    z-index: 1;
   }
 
   .footer-title {
-    color: var(--accent-color) !important;
+    color: var(--text-light);
+    font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1.5rem !important;
-    position: relative;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--footer-accent);
+    padding-left: 1rem;
   }
 
-  .footer-title::after {
-    content: "";
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background: var(--accent-color);
-  }
-
+  /* Social links: Geometric hexagons */
   .social-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 45px;
-    height: 45px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    color: #ffffff;
-    transition: all 0.3s ease;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    text-decoration: none;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    transition: all 0.4s ease;
+    margin: 0 12px 12px 0;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   }
 
   .social-link:hover {
-    background: var(--accent-color);
-    color: #ffffff;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    background: var(--footer-accent);
+    border-color: var(--footer-accent);
+    color: var(--footer-bg);
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 0 0 20px var(--hover-glow);
   }
 
   .social-link i {
-    font-size: 1.2em;
+    font-size: 1.4rem;
   }
 
+  /* Quick links: Clean lines */
   .quick-link {
-    color: #b8b8b8;
+    color: var(--text-muted);
     text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-block;
-    padding: 5px 0;
-    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 0;
+    transition: color 0.3s, padding-left 0.3s;
   }
 
   .quick-link:hover {
-    color: var(--accent-color);
-    padding-left: 10px;
+    color: var(--footer-accent);
+    padding-left: 0.8rem;
   }
 
-  .quick-link i {
-    margin-right: 8px;
-    transition: transform 0.3s ease;
+  .quick-link::before {
+    content: "\f105";
+    /* Font Awesome angle-right */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 0.8rem;
+    color: var(--footer-accent);
+    opacity: 0.7;
   }
 
-  .quick-link:hover i {
-    transform: translateX(5px);
-  }
-
+  /* Contact items: Bordered blocks */
   .contact-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background 0.3s ease;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    transition: border-color 0.3s;
   }
 
   .contact-item:hover {
-    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--footer-accent);
   }
 
   .contact-icon {
-    width: 20px;
-    margin-right: 15px;
-    color: var(--accent-color);
-    margin-top: 2px;
+    color: var(--footer-accent);
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    vertical-align: middle;
   }
 
   .contact-text {
-    color: #b8b8b8;
-    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .contact-text strong {
+    display: block;
+    color: var(--text-light);
+    font-size: 0.95rem;
   }
 
   .contact-text a {
-    color: #ffffff;
+    color: var(--text-muted);
     text-decoration: none;
-    transition: color 0.3s ease;
   }
 
   .contact-text a:hover {
-    color: var(--accent-color);
+    color: var(--footer-accent);
   }
 
+  /* Visitor counter: Geometric accent */
   .visitor-counter {
-    background: linear-gradient(135deg, #dc3545, #b02a37);
-    border-radius: 15px;
-    padding: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--footer-accent);
+    border-radius: 8px;
+    padding: 1.5rem;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(220, 53, 69, 0.3);
-    margin-top: 20px;
+    transition: box-shadow 0.3s;
+  }
+
+  .visitor-counter:hover {
+    box-shadow: 0 0 25px var(--hover-glow);
   }
 
   .visitor-counter strong {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #ffffff;
+    font-size: 2.8rem;
+    color: var(--footer-accent);
     display: block;
-    margin-bottom: 5px;
   }
 
   .visitor-counter label {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    color: var(--text-muted);
   }
 
+  /* Bottom */
   .footer-bottom {
-    background: rgba(0, 0, 0, 0.3);
+    margin-top: 3rem;
+    padding: 1.5rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 40px;
+    font-size: 0.9rem;
   }
 
-  .company-info p {
-    color: #b8b8b8;
-    line-height: 1.6;
-    margin-bottom: 20px;
+  .developed-by {
+    color: var(--footer-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.3s;
   }
 
-  @media (max-width: 768px) {
+  .developed-by:hover {
+    color: var(--text-light);
+  }
+
+  @media (max-width: 991px) {
     .social-link {
-      width: 40px;
-      height: 40px;
-      margin-right: 8px;
+      width: 45px;
+      height: 45px;
+      margin: 0 10px 10px 0;
     }
 
     .visitor-counter strong {
-      font-size: 2rem;
+      font-size: 2.4rem;
     }
   }
 </style>
 {% endblock %}
 
 <footer>
-  <div class="container">
-    <div class="py-5">
-      <div class="row">
-        <!-- Enhanced About Us Section with better styling -->
-        <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-          <h5 class="footer-title">{% trans "ABOUT US" %}</h5>
-          <div class="company-info">
-            <h6 class="text-white mb-3 fw-bold">
-              {% trans "OTECH Engineering" %}
-            </h6>
-            <p class=" text-justify">
-              We are a leading technology company committed to
-              innovating and transforming businesses and governments with
-              cutting-edge solutions.
-            </p>
-          </div>
-        </div>
+  <div class="container footer-container">
+    <div class="row gy-5">
 
-        <!-- Enhanced Contact Section with icons and better layout -->
-        <div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
-          <h5 class="footer-title">{% trans "CONTACTS" %}</h5>
-          {% for contacts in contact %}
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt contact-icon"></i>
-            <div class="contact-text">
-              <strong class="text-white d-block mb-1">{% trans "Address" %}</strong>
-              {{ contacts.address }}
-            </div>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-phone contact-icon"></i>
-            <div class="contact-text">
-              <strong class="text-white d-block mb-1">{% trans "Phone" %}</strong>
-              <a href="tel:{{ contacts.phone }}">{{ contacts.phone }}</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-envelope contact-icon"></i>
-            <div class="contact-text">
-              <strong class="text-white d-block mb-1">{% trans "Email" %}</strong>
-              <a href="mailto:{{ contacts.email }}">{{ contacts.email }}</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-globe contact-icon"></i>
-            <div class="contact-text">
-              <strong class="text-white d-block mb-1">{% trans "Website" %}</strong>
-              <a href="{{ contacts.website }}" target="_blank">{{ contacts.website }}</a>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-
-        <!-- Enhanced Social Media Section with circular buttons -->
-        <div class="col-md-6 col-lg-2 mb-5 mb-lg-0">
-          <h5 class="footer-title">{% trans "SOCIAL" %}</h5>
-          <div class="d-flex flex-wrap">
-            <a href="https://WWW.FACEBOOK.COM/PROFILE.PHP?ID=61556411611103" target="_blank" class="social-link"
-              title="Facebook">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://www.youtube.com/@OTECHENGINEERING" target="_blank" class="social-link" title="YouTube">
-              <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://twitter.com/" target="_blank" class="social-link" title="Twitter">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="https://www.instagram.com/" target="_blank" class="social-link" title="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/" target="_blank" class="social-link" title="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Enhanced Quick Links with hover animations -->
-        <div class="col-md-6 col-lg-2 mb-5 mb-lg-0">
-          <h5 class="footer-title">{% trans "QUICK LINKS" %}</h5>
-          <ul class="list-unstyled mb-0">
-            {% for link in quick_links %}
-            <li class="mb-2">
-              <a href="{{ link.url }}" class="quick-link">
-                <i class="fas fa-angle-right"></i> {{ link.title }}
-              </a>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-
-        <!-- Enhanced Visitor Counter with gradient background -->
-        <div class="col-md-6 col-lg-2">
-          <div class="visitor-counter">
-            <strong data-to="{{ visitors|floatformat:1 }}" data-plugin-options="{'decimals': 1}"
-              data-append="{{ visitors_round }}+">
-              {{ visitors|floatformat:1 }}{{ visitors_round }}+
-            </strong>
-            <label>{% trans "Total visitors" %}</label>
-          </div>
+      <!-- About -->
+      <div class="col-md-6 col-lg-3">
+        <h5 class="footer-title">{% trans "ABOUT US" %}</h5>
+        <div class="company-info">
+          <h6 class="text-white mb-3 fw-bold">{% trans "OTECH Engineering" %}</h6>
+          <p class="text-justify">
+            We are a leading technology company committed to innovating and transforming businesses and governments with
+            cutting-edge solutions.
+          </p>
         </div>
       </div>
+
+      <!-- Contacts -->
+      <div class="col-md-6 col-lg-3">
+        <h5 class="footer-title">{% trans "CONTACTS" %}</h5>
+        {% for contacts in contact %}
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt contact-icon"></i>
+          <div class="contact-text">
+            <strong>{% trans "Address" %}</strong>
+            <span>{{ contacts.address }}</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone contact-icon"></i>
+          <div class="contact-text">
+            <strong>{% trans "Phone" %}</strong>
+            <a href="tel:{{ contacts.phone }}">{{ contacts.phone }}</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope contact-icon"></i>
+          <div class="contact-text">
+            <strong>{% trans "Email" %}</strong>
+            <a href="mailto:{{ contacts.email }}">{{ contacts.email }}</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-globe contact-icon"></i>
+          <div class="contact-text">
+            <strong>{% trans "Website" %}</strong>
+            <a href="{{ contacts.website }}" target="_blank">{{ contacts.website }}</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Social -->
+      <div class="col-md-6 col-lg-2">
+        <h5 class="footer-title">{% trans "SOCIAL" %}</h5>
+        <div class="d-flex flex-wrap">
+          <a href="https://www.facebook.com/profile.php?id=61556411611103" target="_blank" class="social-link"
+            title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.youtube.com/@OTECHENGINEERING" target="_blank" class="social-link" title="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://twitter.com/" target="_blank" class="social-link" title="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.instagram.com/" target="_blank" class="social-link" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/" target="_blank" class="social-link" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-6 col-lg-2">
+        <h5 class="footer-title">{% trans "QUICK LINKS" %}</h5>
+        <ul class="list-unstyled">
+          {% for link in quick_links %}
+          <li>
+            <a href="{{ link.url }}" class="quick-link">{{ link.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Visitor Counter -->
+      <div class="col-md-6 col-lg-2">
+        <div class="visitor-counter">
+          <strong data-to="{{ visitors|floatformat:1 }}" data-plugin-options="{'decimals': 1}"
+            data-append="{{ visitors_round }}+" class="counter">
+            {{ visitors|floatformat:1 }}{{ visitors_round }}+
+          </strong>
+          <label>{% trans "Total visitors" %}</label>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Enhanced Footer Bottom Section -->
-  <div class="footer-bottom">
+  <!-- Bottom -->
+  <div class="footer-bottom text-center text-md-start">
     <div class="container">
-      <div class="py-4">
-        <div class="row align-items-center">
-          <div class="col-md-6 text-center text-md-start">
-            <p class="mb-0 text-white-50">
-              &copy; {% now "Y" %} OTECH Engineering & Technology
-              Solutions. {% trans "All rights reserved." %}
-            </p>
-          </div>
-          <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-            <p class="mb-0">
-              {% trans "Developed by" %}
-              <a href="https://www.otech.et/" target="_blank"
-                class="text-white fw-bold text-decoration-none developed-by" style="transition: color 0.3s ease">
-                {% trans "OTECH Engineering & Technology Solutions" %}
-              </a>
-            </p>
-          </div>
+      <div class="row align-items-center gy-3">
+        <div class="col-md-6">
+          <p class="mb-0 text-white-50">
+            &copy; {% now "Y" %} OTECH Engineering & Technology Solutions. {% trans "All rights reserved." %}
+          </p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="mb-0">
+            {% trans "Developed by" %}
+            <a href="https://www.otech.et/" target="_blank" class="developed-by">
+              {% trans "OTECH Engineering & Technology Solutions" %}
+            </a>
+          </p>
         </div>
       </div>
     </div>

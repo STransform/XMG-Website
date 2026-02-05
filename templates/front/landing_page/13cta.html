@@ -1,49 +1,145 @@
-{% load i18n %} {% load static %} {% block css %}
+{% load i18n %}
+{% load static %}
+
+{% block css %}
 <style>
+  :root {
+    --cta-bg-start: #0f172a;
+    --cta-bg-end: #1e293b;
+    --accent: #6366f1;
+    /* Indigo – modern tech feel; change to your brand color */
+    --accent-glow: rgba(99, 102, 241, 0.4);
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+  }
+
   .cta-section {
-    padding: 100px 0;
-    background: linear-gradient(135deg, var(--primary-black) 0%, #2c2c2c 100%);
+    padding: 120px 0 100px;
+    background: linear-gradient(135deg, var(--cta-bg-start) 0%, var(--cta-bg-end) 100%);
     position: relative;
+    overflow: hidden;
+    color: var(--text-primary);
   }
 
   .cta-section::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.3;
+    inset: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(99, 102, 241, 0.12) 0%, transparent 50%);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .cta-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"><defs><filter id="glow"><feGaussianBlur stdDeviation="2.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g opacity="0.07"><circle cx="400" cy="400" r="300" fill="none" stroke="%236366f1" stroke-width="2" filter="url(%23glow)"/></g></svg>') center/cover no-repeat;
+    opacity: 0.15;
+    pointer-events: none;
   }
 
   .cta-content {
     position: relative;
     z-index: 2;
+    max-width: 780px;
+    margin: 0 auto;
     text-align: center;
   }
 
   .cta-title {
-    font-family: "Playfair Display", serif;
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: var(--primary-white);
-    margin-bottom: 20px;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    background: linear-gradient(90deg, #f1f5f9, #c7d2fe, #f1f5f9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .cta-subtitle {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 40px;
+    font-size: clamp(1.125rem, 3vw, 1.35rem);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  @media (max-width: 768px) {
-    .cta-title {
-      font-size: 2rem;
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .btn-cta {
+    padding: 1rem 2.2rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    box-shadow: 0 10px 30px var(--accent-glow);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 20px 50px var(--accent-glow);
+  }
+
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.25), transparent);
+    transform: translateY(-100%);
+    transition: transform 0.6s;
+  }
+
+  .btn-primary:hover::after {
+    transform: translateY(100%);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: white;
+  }
+
+  .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-4px);
+  }
+
+  @media (max-width: 576px) {
+    .cta-buttons {
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .btn-cta {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
     }
   }
 </style>
-
 {% endblock %}
 
 <section class="cta-section">
@@ -51,15 +147,16 @@
     <div class="cta-content">
       <h2 class="cta-title">Ready to Transform Your Business?</h2>
       <p class="cta-subtitle">
-        Let's discuss how OTech Engineering can help you achieve your
-        technology goals.
+        Let's discuss how OTECH Engineering can help you achieve your technology goals with innovative, reliable
+        solutions.
       </p>
-      <div class="d-flex flex-wrap justify-content-center gap-3">
-        <a href="{% url 'contact_us' %}" class="btn btn-corporate-red btn-lg">
-          Get Started
+
+      <div class="cta-buttons">
+        <a href="{% url 'contact_us' %}" class="btn-cta btn-primary">
+          Get Started Today
         </a>
-        <a href="{% url 'services' %}" class="btn btn-outline-light btn-lg">
-          View Services
+        <a href="{% url 'services' %}" class="btn-cta btn-outline">
+          Explore Our Services
         </a>
       </div>
     </div>

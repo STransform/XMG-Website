@@ -1,137 +1,203 @@
-{% load i18n %} {% load static %} {% block css %}
+{% load i18n %}
+{% load static %}
+
+{% block css %}
 <style>
+  :root {
+    --partners-bg: #f8fafc;
+    --card-bg: rgba(255, 255, 255, 0.92);
+    --accent: #4f46e5;
+    /* indigo – matches previous sections */
+    --text-dark: #1e2937;
+    --text-muted: #64748b;
+    --shadow-sm: 0 6px 20px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 12px 32px rgba(79, 70, 229, 0.18);
+  }
+
   .partners-section {
-    overflow: hidden;
+    padding: 100px 0;
+    background: var(--partners-bg);
     position: relative;
+    overflow: hidden;
   }
 
   .partners-section::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg,
-        var(--primary-white) 0%,
-        rgba(26, 26, 26, 0.02) 100%);
+    inset: 0;
+    background: radial-gradient(circle at 70% 30%, rgba(79, 70, 229, 0.06) 0%, transparent 60%);
     pointer-events: none;
   }
 
   .section-title {
-    color: var(--primary-black) !important;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 0.8rem;
     position: relative;
   }
 
   .section-title::after {
     content: "";
     position: absolute;
-    bottom: -10px;
+    bottom: -16px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: var(--accent-color);
-    border-radius: 2px;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    border-radius: 4px;
   }
 
-  .lead {
-    color: var(--primary-black);
-    opacity: 0.7;
-  }
-
-  .partner-card {
-    border-radius: 8px;
+  .lead-text {
+    font-size: 1.2rem;
+    color: var(--text-muted);
     text-align: center;
-    background: var(--primary-white);
-    box-shadow: 0 4px 15px rgba(26, 26, 26, 0.04);
-    position: relative;
-    overflow: hidden;
-    padding: 15px 10px;
+    max-width: 680px;
+    margin: 0 auto 3.5rem;
+    line-height: 1.6;
   }
 
-  .marquee {
-    position: relative;
-    margin: 20px 0;
-    /* Constrain marquee width instead of full screen */
-    max-width: 800px;
-    margin: 20px auto;
+  .marquee-wrapper {
     overflow: hidden;
+    position: relative;
+    padding: 1.5rem 0;
   }
 
   .marquee-track {
     display: flex;
-    gap: 20px;
-    /* Remove transition that was causing jerky animation */
+    gap: 2.5rem;
+    animation: scroll 35s linear infinite;
     will-change: transform;
   }
 
-  .marquee-item {
-    flex: 0 0 200px;
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .partner-item {
+    flex: 0 0 auto;
+    width: 180px;
+    height: 100px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+  }
+
+  .partner-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.35s ease;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(79, 70, 229, 0.08);
+  }
+
+  .partner-card:hover {
+    transform: translateY(-8px) scale(1.06);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(79, 70, 229, 0.3);
   }
 
   .partner-card img {
-    max-height: 80px;
     max-width: 100%;
+    max-height: 60px;
     width: auto;
     height: auto;
     object-fit: contain;
-    filter: grayscale(0.2) opacity(0.9);
+    filter: grayscale(0.4) brightness(0.95) contrast(1.05);
+    transition: all 0.4s ease;
   }
 
-  @media (max-width: 768px) {
-    .partners-section {
-      padding: 60px 0;
-    }
+  .partner-card:hover img {
+    filter: grayscale(0) brightness(1) contrast(1);
+  }
 
-    /* Adjust marquee width for mobile */
-    .marquee {
-      max-width: 100%;
-      margin: 20px 15px;
-    }
+  /* Duplicate track for seamless loop */
+  .marquee-track {
+    display: flex;
+  }
 
-    .marquee-item {
-      flex: 0 0 160px;
-    }
-
-    .marquee-track {
-      gap: 15px;
+  /* Mobile adjustments */
+  @media (max-width: 992px) {
+    .partner-item {
+      width: 160px;
     }
 
     .partner-card {
-      padding: 12px 8px;
+      padding: 1rem 1.2rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .partners-section {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+    }
+
+    .lead-text {
+      font-size: 1.05rem;
+    }
+
+    .partner-item {
+      width: 140px;
     }
 
     .partner-card img {
-      max-height: 60px;
+      max-height: 50px;
+    }
+
+    .marquee-track {
+      gap: 1.5rem;
+      animation-duration: 28s;
+      /* slightly faster on mobile */
     }
   }
 </style>
-{% endblock %} {% if our_partners %}
+{% endblock %}
+
+{% if our_partners %}
 <section class="partners-section">
   <div class="container">
-    <div class="row mb-5">
-      <div class="col-12 text-center">
-        <h2 class="section-title display-4">Our Partners</h2>
-        <p class="lead">
-          Trusted partnerships that drive innovation and excellence
-        </p>
-      </div>
-    </div>
+    <h2 class="section-title">Our Partners</h2>
+    <p class="lead-text">
+      {% trans "Trusted partnerships that drive innovation and excellence" %}
+    </p>
   </div>
 
-  <div class="marquee" id="partnersMarquee">
-    <div class="marquee-track" id="partnersTrack">
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
       {% for partner in our_partners %}
-      <div class="marquee-item">
-        <div class="partner-card text-center">
+      <div class="partner-item">
+        <div class="partner-card">
           {% if partner.image %}
-          <img src="{{ partner.image.url }}" alt="{{ partner.name|default:'Partner Logo' }}" loading="lazy" />
+          <img src="{{ partner.image.url }}" alt="{{ partner.name|default:'Partner' }}" loading="lazy">
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Duplicate for seamless infinite scroll -->
+      {% for partner in our_partners %}
+      <div class="partner-item">
+        <div class="partner-card">
+          {% if partner.image %}
+          <img src="{{ partner.image.url }}" alt="{{ partner.name|default:'Partner' }}" loading="lazy">
           {% endif %}
         </div>
       </div>
@@ -139,42 +205,4 @@
     </div>
   </div>
 </section>
-{% endif %} {% block js %}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const track = document.getElementById("partnersTrack");
-    const marquee = document.getElementById("partnersMarquee");
-
-    if (!track || !marquee) return;
-
-    // Clone items for seamless loop
-    const items = track.children;
-    const itemsArray = Array.from(items);
-
-    for (let i = 0; i < 4; i++) {
-      itemsArray.forEach((item) => {
-        const clone = item.cloneNode(true);
-        track.appendChild(clone);
-      });
-    }
-
-    let position = 0;
-    const speed = 0.5;
-    const itemWidth = 200 + 20;
-    const totalWidth = itemWidth * itemsArray.length;
-
-    function animate() {
-      position -= speed;
-
-      if (Math.abs(position) >= totalWidth) {
-        position = 0;
-      }
-
-      track.style.transform = `translateX(${position}px)`;
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-  });
-</script>
-{% endblock %}
+{% endif %}

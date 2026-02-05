@@ -1,108 +1,157 @@
-{% load i18n %} {% load static %} {% block css %}
+{% load i18n %}
+{% load static %}
+
+<!-- New Services Section Design: Futuristic Neon Grid -->
+{% block css %}
 <style>
+  :root {
+    --services-bg: #0a0a1a;
+    /* Deep space blue-black */
+    --accent-neon: #0ff;
+    /* Cyan neon glow */
+    --text-primary: #f0f0ff;
+    --text-secondary: #a0a0ff;
+    --card-bg: rgba(20, 20, 50, 0.7);
+    --glow: rgba(0, 255, 255, 0.35);
+  }
+
   .services-section {
-    padding: 100px 0;
-    background-color: var(--primary-white);
+    padding: 120px 0;
+    background: var(--services-bg);
+    position: relative;
+    overflow: hidden;
+    color: var(--text-primary);
+  }
+
+  .services-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(0, 255, 255, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, var(--accent-neon), #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px var(--glow);
+  }
+
+  .section-description {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 4rem;
+    line-height: 1.7;
   }
 
   .service-card {
-    background: var(--primary-white);
-    border: none;
-    border-radius: 0;
-    padding: 40px 30px;
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
     text-align: center;
-    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
     height: 100%;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(transparent, rgba(0, 255, 255, 0.2), transparent);
+    transition: top 0.6s;
+  }
+
+  .service-card:hover::before {
+    top: 100%;
   }
 
   .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px var(--glow);
+    border-color: var(--accent-neon);
   }
 
   .service-icon {
-    width: 80px;
-    height: 80px;
-    background-color: var(--accent-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 25px;
-    transition: all 0.3s ease;
+    font-size: 3.5rem;
+    color: var(--accent-neon);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px var(--glow);
+    transition: transform 0.3s;
   }
 
   .service-card:hover .service-icon {
-    background-color: var(--primary-black);
-  }
-
-  .service-icon i {
-    font-size: 2rem;
-    color: var(--primary-white);
+    transform: scale(1.15);
   }
 
   .service-title {
-    font-family: "Playfair Display", serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--primary-black);
-    margin-bottom: 15px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
   }
 
   .service-description {
-    color: var(--medium-gray);
-    line-height: 1.7;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .service-card {
+      padding: 2rem 1.5rem;
+    }
+
+    .service-icon {
+      font-size: 3rem;
+    }
+
+    .service-title {
+      font-size: 1.4rem;
+    }
   }
 </style>
 {% endblock %}
 
 <section class="services-section">
   <div class="container">
-    <div class="row mb-5">
-      <div class="col-12 text-center">
-        <h2 class="section-title display-4">Our Services</h2>
-        <p class="lead text-muted">
-          Comprehensive technology solutions tailored to your business
-          needs
-        </p>
-      </div>
-    </div>
-    <div class="row g-4">
+    <h2 class="section-title">{% trans "Our Services" %}</h2>
+    <p class="section-description">{% trans "Explore our wide range of services designed to meet your business needs
+      with innovative, cutting-edge solutions." %}</p>
+    <div class="row g-4 justify-content-center">
       <div class="col-lg-4 col-md-6">
-        <div class="service-card corporate-card">
-          <div class="service-icon">
-            <i class="fas fa-code"></i>
-          </div>
-          <h3 class="service-title">Tech Solutions</h3>
-          <p class="service-description">
-            Custom software development and technology consulting
-            services to drive your business forward.
+        <div class="service-card">
+          <i class="fas fa-laptop-code service-icon"></i>
+          <h3 class="service-title">{% trans "Web Development" %}</h3>
+          <p class="service-description">{% trans "Build responsive and modern websites tailored to your business
+            goals." %}</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="service-card">
+          <i class="fas fa-network-wired service-icon"></i>
+          <h3 class="service-title">{% trans "IT Infrastructure" %}</h3>
+          <p class="service-description">{% trans "Design and implement robust IT systems for seamless operations." %}
           </p>
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
-        <div class="service-card corporate-card">
-          <div class="service-icon">
-            <i class="fas fa-server"></i>
-          </div>
-          <h3 class="service-title">Infrastructure</h3>
-          <p class="service-description">
-            Robust infrastructure solutions and deployment services
-            for scalable business operations.
-          </p>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6">
-        <div class="service-card corporate-card">
-          <div class="service-icon">
-            <i class="fas fa-lightbulb"></i>
-          </div>
-          <h3 class="service-title">Innovation</h3>
-          <p class="service-description">
-            Strategic consulting and innovative solutions to keep your
-            business ahead of the competition.
+        <div class="service-card">
+          <i class="fas fa-lightbulb service-icon"></i>
+          <h3 class="service-title">{% trans "Innovation Consulting" %}</h3>
+          <p class="service-description">{% trans "Drive innovation with expert guidance and cutting-edge solutions." %}
           </p>
         </div>
       </div>

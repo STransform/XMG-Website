@@ -1,182 +1,96 @@
-{% load i18n %} {% load static %} {% block css %}
+{% load i18n %} {% load static %}
+
+{% block css %}
 <style>
   .mvv-section {
-    background: var(--light-gray);
-    padding: 100px 0;
-    position: relative;
+    background: #f8fafc;
+    padding: 110px 0;
   }
 
   .mvv-title {
-    font-family: "Playfair Display", serif;
-    font-size: 3rem;
-    font-weight: 600;
-    color: var(--primary-black);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #1e2937;
     text-align: center;
     margin-bottom: 4rem;
   }
 
-  .mvv-title .separator {
-    color: var(--accent-color);
-    font-weight: 300;
-    margin: 0 20px;
-  }
-
   .mvv-card {
-    background: var(--primary-white);
-    border: 2px solid #f5f5f5;
+    background: #ffffff;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    padding: 2.5rem;
     height: 100%;
-    min-height: 350px;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-  }
-
-  .mvv-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--accent-color);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
-
-  .mvv-card:hover::before {
-    transform: scaleX(1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s ease;
+    border: 1px solid transparent;
   }
 
   .mvv-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    border-color: var(--accent-color);
+    transform: translateY(-12px);
+    box-shadow: 0 20px 50px rgba(79, 70, 229, 0.15);
+    border-color: #4f46e5;
   }
 
-  .mvv-card .card-body {
-    padding: 3rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    background: var(--primary-white);
-    height: 100%;
-  }
-
-  .mvv-card .card-icon {
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 2rem;
-    padding: 18px;
-    background: var(--accent-color);
+  .card-icon {
+    width: 75px;
+    height: 75px;
+    background: #4f46e5;
+    color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    margin: 0 auto 1.8rem;
+    font-size: 2rem;
+    transition: transform 0.4s;
   }
 
   .mvv-card:hover .card-icon {
-    transform: scale(1.1);
-    box-shadow: 0 10px 20px rgba(255, 20, 43, 0.3);
+    transform: scale(1.15);
   }
 
-  .mvv-card .card-icon i {
-    font-size: 1.8rem;
-    color: var(--primary-white);
+  .card-title {
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #1e2937;
+    text-align: center;
+    margin-bottom: 1rem;
   }
 
-  .mvv-card .card-title {
-    font-family: "Playfair Display", serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--primary-black);
-    margin-bottom: 1.5rem;
-  }
-
-  .mvv-card .card-text {
-    color: var(--medium-gray);
-    line-height: 1.7;
-    font-size: 1rem;
-  }
-
-  @media (max-width: 768px) {
-
-    .mvv-title,
-    .team-title {
-      font-size: 2.2rem;
-    }
-
-    .hero-about-section {
-      padding: 60px 0;
-    }
-
-    .mvv-section,
-    .team-section,
-    .about-content {
-      padding: 60px 0;
-    }
-
-    .mvv-card {
-      min-height: 320px;
-      margin-bottom: 2rem;
-    }
+  .card-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #475569;
+    text-align: center;
   }
 </style>
 {% endblock %}
 
-<!-- Mission/Vision/Values Section  -->
 <section class="mvv-section">
   <div class="container">
-    <div class="row">
-      <div class="col-12 text-center mb-5">
-        <h2 class="mvv-title appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="200">
-          Mission
-          <span class="separator">/</span>
-          Vision
-          <span class="separator">/</span>
-          Values
-        </h2>
-      </div>
-    </div>
+    <h2 class="mvv-title">Mission <span style="color:#4f46e5">/</span> Vision <span style="color:#4f46e5">/</span>
+      Values</h2>
 
-    <div class="row">
-      <div class="col-lg-4 mb-4 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="300">
-        <div class="mvv-card">
-          <div class="card-body">
-            <div class="card-icon">
-              <i class="bi bi-bullseye"></i>
-            </div>
-            <h4 class="card-title">{% trans "Mission" %}</h4>
-            <p class="card-text otech-font">{{ about_data.mission }}</p>
-          </div>
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="mvv-card text-center">
+          <div class="card-icon"><i class="bi bi-bullseye"></i></div>
+          <h4 class="card-title">{% trans "Mission" %}</h4>
+          <p class="card-text">{{ about_data.mission }}</p>
         </div>
       </div>
-
-      <div class="col-lg-4 mb-4 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="400">
-        <div class="mvv-card">
-          <div class="card-body">
-            <div class="card-icon">
-              <i class="bi bi-eye"></i>
-            </div>
-            <h4 class="card-title">{% trans "Vision" %}</h4>
-            <p class="card-text otech-font">{{ about_data.vision }}</p>
-          </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="mvv-card text-center">
+          <div class="card-icon"><i class="bi bi-eye"></i></div>
+          <h4 class="card-title">{% trans "Vision" %}</h4>
+          <p class="card-text">{{ about_data.vision }}</p>
         </div>
       </div>
-
-      <div class="col-lg-4 mb-4 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay="500">
-        <div class="mvv-card">
-          <div class="card-body">
-            <div class="card-icon">
-              <i class="bi bi-gem"></i>
-            </div>
-            <h4 class="card-title">{% trans "Values" %}</h4>
-            <p class="card-text otech-font">{{ about_data.values }}</p>
-          </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="mvv-card text-center">
+          <div class="card-icon"><i class="bi bi-gem"></i></div>
+          <h4 class="card-title">{% trans "Values" %}</h4>
+          <p class="card-text">{{ about_data.values }}</p>
         </div>
       </div>
     </div>

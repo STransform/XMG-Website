@@ -1,68 +1,74 @@
-{% load i18n %} {% load static %} {% block css %}
+{% load i18n %} {% load static %}
+
+<!-- Redesigned Statistics Section -->
+{% block css %}
 <style>
   .stats-section {
-    background-color: var(--light-gray);
-    padding: 80px 0;
-  }
-
-  .stat-item {
+    background: linear-gradient(135deg, #f9f9f9, #eaeaea);
+    padding: 100px 0;
     text-align: center;
-    padding: 30px 20px;
   }
 
-  .stat-number {
-    font-family: "Playfair Display", serif;
-    font-size: 3rem;
+  .stats-section .stat-item {
+    padding: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .stats-section .stat-item:hover {
+    transform: translateY(-10px);
+  }
+
+  .stats-section .stat-number {
+    font-family: "Poppins", sans-serif;
+    font-size: 4rem;
     font-weight: 700;
-    color: var(--accent-color);
-    display: block;
+    color: #ff4c60;
     margin-bottom: 10px;
   }
 
-  .stat-label {
-    font-size: 1rem;
-    color: var(--medium-gray);
+  .stats-section .stat-label {
+    font-size: 1.2rem;
+    color: #555;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 500;
   }
 
   @media (max-width: 768px) {
-    .stat-number {
-      font-size: 2.5rem;
+    .stats-section .stat-number {
+      font-size: 3rem;
+    }
+
+    .stats-section .stat-label {
+      font-size: 1rem;
     }
   }
 </style>
-
 {% endblock %}
 
 <section class="stats-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+      <div class="col-lg-3 col-md-6 mb-4">
         <div class="stat-item">
-          <!-- Added data attributes for animation -->
           <span class="stat-number" data-target="8" data-suffix="+">0+</span>
           <span class="stat-label">{% trans "Projects Completed" %}</span>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+      <div class="col-lg-3 col-md-6 mb-4">
         <div class="stat-item">
-          <!-- Added data attributes for animation -->
           <span class="stat-number" data-target="10" data-suffix="+">0+</span>
           <span class="stat-label">{% trans "Happy Clients" %}</span>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+      <div class="col-lg-3 col-md-6 mb-4">
         <div class="stat-item">
-          <!-- Added data attributes for animation -->
           <span class="stat-number" data-target="2" data-suffix="+">0+</span>
           <span class="stat-label">{% trans "Years Experience" %}</span>
         </div>
       </div>
       <div class="col-lg-3 col-md-6">
         <div class="stat-item">
-          <!-- Special handling for 24/7 format -->
           <span class="stat-number" data-target="24" data-suffix="/7">0/7</span>
           <span class="stat-label">{% trans "Support Available" %}</span>
         </div>
@@ -71,7 +77,6 @@
   </div>
 </section>
 
-<!-- Added JavaScript for count-up animation -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const statNumbers = document.querySelectorAll('.stat-number');
@@ -93,7 +98,6 @@
       }, 16);
     }
 
-    // Create intersection observer to trigger animation when section is visible
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -110,7 +114,6 @@
       threshold: 0.5
     });
 
-    // Observe the stats section
     const statsSection = document.querySelector('.stats-section');
     if (statsSection) {
       observer.observe(statsSection);
