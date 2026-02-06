@@ -15,7 +15,7 @@
 
   .cta-section {
     padding: 120px 0 100px;
-    background: linear-gradient(135deg, var(--cta-bg-start) 0%, var(--cta-bg-end) 100%);
+    background: linear-gradient(135deg, #f9f9f9, #eaeaea);
     position: relative;
     overflow: hidden;
     color: var(--text-primary);
@@ -52,10 +52,10 @@
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.2rem;
-    background: linear-gradient(90deg, #f1f5f9, #c7d2fe, #f1f5f9);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #000000;
+    /* PURE BLACK */
+    background: none !important;
+    -webkit-text-fill-color: #000000 !important;
   }
 
   .cta-subtitle {
@@ -146,7 +146,7 @@
   <div class="container">
     <div class="cta-content">
       <h2 class="cta-title">Ready to Transform Your Business?</h2>
-      <p class="cta-subtitle">
+      <p class="cta-subtitle" style="color: #000000;">
         Let's discuss how XMG Africa can help you achieve your technology goals with innovative, reliable
         solutions.
       </p>
@@ -155,7 +155,7 @@
         <a href="{% url 'contact_us' %}" class="btn-cta btn-primary">
           Get Started Today
         </a>
-        <a href="{% url 'services' %}" class="btn-cta btn-outline">
+        <a href="{% url 'services' %}" class="btn-cta btn-primary">
           Explore Our Services
         </a>
       </div>
