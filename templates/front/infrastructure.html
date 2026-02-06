@@ -1,119 +1,157 @@
 {% extends 'front/base.html' %}
 {% load i18n %}
-{% block infrastructure %} active {% endblock %}
-{% block infrastructure_dynamic %} active {% endblock %}
-{% block content %} 
 {% load static %}
 
+{% block infrastructure %} active {% endblock %}
+{% block infrastructure_dynamic %} active {% endblock %}
+
+{% block content %} 
+
 <style>
-    .otech-font {
-   font-style: italic; 
-   font-weight: bold;  
-   color: black;      
-   }
+    /* Infrastructure Theme Variables */
+    :root {
+        --infra-dark: #2c3e50;
+        --infra-accent: #dc3545;
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Hero Section Enhancement */
+    .infra-hero-item {
+        height: 600px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .infra-hero-item::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(44, 62, 80, 0.4) 100%);
+    }
+
+    /* Card Styling */
+    .infra-card {
+        border: none;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: var(--card-shadow);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        height: 100%;
+    }
+
+    .infra-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .infra-card-img {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+        transition: transform 0.5s ease;
+    }
+
+    .infra-card:hover .infra-card-img {
+        transform: scale(1.05);
+    }
+
+    .infra-title {
+        color: var(--infra-dark);
+        font-weight: 800;
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+        border-left: 4px solid var(--infra-accent);
+        padding-left: 15px;
+    }
+
+    .infra-content {
+        color: #666;
+        line-height: 1.7;
+        font-size: 0.95rem;
+        /* Removing the bold italics for a cleaner, modern corporate feel */
+    }
+
+    /* Section Header */
+    .infra-section-header {
+        background: #f8f9fa;
+        padding: 80px 0 40px;
+        text-align: center;
+    }
+
+    .infra-section-header h1 {
+        font-weight: 800;
+        color: var(--infra-dark);
+        letter-spacing: -1px;
+    }
 </style>
 
-{% if infrastructure%}
-<div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-horizontal-center show-dots-hover nav-inside nav-inside-plus nav-dark nav-md nav-font-size-md show-nav-hover mb-0"
-    data-plugin-options="{'autoplayTimeout': 7000}" data-dynamic-height="['670px','670px','670px','550px','500px']"
-    style="height: 700px;">
+{% if infrastructure %}
+<div class="owl-carousel owl-carousel-light manual nav-inside nav-inside-plus nav-md show-nav-hover mb-0"
+     data-plugin-options="{'autoplay': true, 'autoplayTimeout': 8000}" 
+     style="height: 600px;">
     <div class="owl-stage-outer">
         <div class="owl-stage">
-            <!-- Dynamic Carousel Slides -->
-            {% for infrastructures in infrastructure %}
-            <div class="owl-item position-relative"
-                style="background-image: url('{{ infrastructures.infr_image.url }}'); background-color: #2E3136; background-size: cover; background-position: center; max-height: 600px;">
+            {% for item in infrastructure %}
+            <div class="owl-item infra-hero-item" style="background-image: url('{{ item.infr_image.url }}');">
                 <div class="container position-relative z-index-1 h-100">
-                    <div
-                        class="d-flex flex-column align-items-start justify-content-lg-center justify-content-end h-100 pt-5  px-lg-5 px-md-2 px-sm-0 py-5">
-                        <h3 class="position-relative text-color-light text-4 line-height-2 font-weight-light  mb-2 appear-animation"
-                            data-appear-animation="fadeInDownShorter" data-plugin-options="{'minWindowWidth': 0}">
-                            {% trans "Tech Solutions & Services" %}</h3>
-                        <h1 class="text-color-light font-weight-bold text-9 mb-5  appear-animation col-lg-5 col-md-6 col-sm-12"
-                            data-appear-animation="blurIn" data-appear-animation-delay="500"
-                            data-plugin-options="{'minWindowWidth': 0}">{{ infrastructures.infr_content|truncatechars:110 }}</h1>
+                    <div class="d-flex flex-column align-items-start justify-content-center h-100 px-lg-5">
+                        <span class="text-color-light opacity-7 text-uppercase font-weight-bold mb-2">{% trans "Deployment & Engineering" %}</span>
+                        <h1 class="text-color-light font-weight-bold text-12 mb-4 appear-animation" data-appear-animation="fadeInRightShorter">
+                            {{ item.infr_title }}
+                        </h1>
+                        <p class="text-color-light text-4 opacity-8 col-lg-5 mb-0">
+                            {{ item.infr_content|truncatechars:130 }}
+                        </p>
                     </div>
                 </div>
             </div>
             {% endfor %}
-            <!-- End Dynamic Carousel Slides -->
         </div>
-    </div>
-    <div class="owl-nav">
-        <button type="button" role="presentation" class="owl-prev" aria-label="Previous"></button>
-        <button type="button" role="presentation" class="owl-next" aria-label="Next"></button>
-    </div>
-    <div class="owl-dots mb-5" style="text-align: center;">
-        <!-- Dots will be generated automatically based on the number of slides -->
     </div>
 </div>
-{% else %} 
-
-
 {% endif %}
 
-
-
-<section class="section border-0 py-10 m-0 px-lg-5  pt-4">
+<div class="infra-section-header">
     <div class="container">
-        <div class="row align-items-end pb-3 ">
-            <div class="d-flex align-items-end justify-content-end">
-                <ul class="breadcrumb d-block text-center">
-                    <li><a href="{% url 'index' %}">{% trans "Home" %}</a></li>
-                    <li class="active">{% trans "Technology" %}</li>
-                </ul>        
-            </div>
-           
-            
-        </div>
-        
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}" class="text-decoration-none">{% trans "Home" %}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{% trans "Infrastructure" %}</li>
+            </ol>
+        </nav>
+        <h1 class="display-4">Infrastructure & <span class="text-danger">Deployment</span></h1>
+        <p class="lead text-muted mx-auto" style="max-width: 700px;">Building the backbone of modern connectivity through precision engineering and scalable solutions.</p>
     </div>
-    <h1  style="text-align: center;color: red;">Infrastructure & Deployment</h1>
-</section>
-<div class="bg-color-light ">
-    <div id="examples" class="container py-2 pt-5 ">
-        <h2 class="text-color-dark font-weight-normal text-8 mb-2"></h2>
-        
-        <div class="row mb-5 pb-3" >
-            {% for infrastructures in infrastructure %}
-            <div class="col-lg-4 appear-animation mb-3" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300">
-                <div class="aligned card border-0 border-shadow bg-color-light text-center" style="min-height: 250px; ">
-                    <div class="card-body">
-                        <!-- <img class="icons text-2 " style="height: 50px;" src="{% static 'front/imgs/about/value.svg' %}"> -->
+</div>
+
+<div class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row g-4">
+            {% for item in infrastructure %}
+            <div class="col-lg-4 col-md-6 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                <div class="infra-card">
+                    {% if item.infr_image %}
+                    <div class="overflow-hidden">
+                        <img src="{{ item.infr_image.url }}" class="infra-card-img" alt="{{ item.infr_title }}">
+                    </div>
+                    {% endif %}
+                    
+                    <div class="p-4">
+                        <h3 class="infra-title">{{ item.infr_title }}</h3>
                         
-                        
-                        
-                        <div class="card mb-3">
-                            <!-- Image at the top -->
-                            {% if infrastructures.infr_image %}
-                            <img src="{{ infrastructures.infr_image.url }}" class="card-img-top" alt="Technology Image">
-                            {% endif %}
-                            <h1 class="card-title mt-2 mb-1 text-4 font-weight-bold" style="color:red;">{{infrastructures.infr_title}}</h1>
-                            <!-- Card body containing the text content -->
-                            <div class="card-body">
-                                <div data-plugin-readmore="" data-plugin-options="{
-                                                    'buttonOpenLabel': 'Read More <i class=\'fas fa-chevron-down text-2 ms-1\'></i>',
-                                                    'buttonCloseLabel': 'Read Less <i class=\'fas fa-chevron-up text-2 ms-1\'></i>',
-                                                    'align': 'end'
-                                                    }" class="position-relative" style="height: 250px; overflow: hidden; max-height: none;">
-                        
-                                    <p class="otech-font" style="text-align: justify; line-height: 1.6;">{{ infrastructures.infr_content }}</p> 
-                        
-                                    <div class="readmore-button-wrapper text-end" style="position: absolute; bottom: 0px; left: 0px; width: 100%; z-index: 2;">
-                                        <a href="#" class="text-decoration-none">{% trans "Read More" %} <i class="fas fa-chevron-down text-2 ms-1"></i></a>
-                                    </div>
-                                    <div class="readmore-overlay" style="background: linear-gradient(rgba(2, 0, 36, 0) 0%, rgb(255, 255, 255) 100%); position: absolute; bottom: 0px; left: 0px; width: 100%; height: 100px; z-index: 1;"></div>
-                                </div>
-                            </div>
+                        <div data-plugin-readmore data-plugin-options="{
+                            'buttonOpenLabel': 'Read More <i class=\'fas fa-chevron-down text-1 ms-1\'></i>',
+                            'buttonCloseLabel': 'Read Less <i class=\'fas fa-chevron-up text-1 ms-1\'></i>',
+                            'maxHeight': 120
+                        }">
+                            <p class="infra-content mb-0">{{ item.infr_content }}</p>
                         </div>
-                                        
                     </div>
                 </div>
             </div>
-           
             {% endfor %}
-           
-
         </div>
     </div>
 </div>

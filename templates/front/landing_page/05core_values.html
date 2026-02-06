@@ -7,7 +7,8 @@
     --card-radius: 16px;
     --transition-speed: 0.4s;
     --primary-red: #dc3545;
-    /* Adjust based on your actual accent */
+    --accent-gold: #f1c40f;  
+    --dark-text: #1a1a1a;
   }
 
   .values-section {
@@ -19,14 +20,15 @@
     font-weight: 800;
     letter-spacing: -1px;
     margin-bottom: 1rem;
-    color: #1a1a1a;
+    color: var(--primary-red);           /* ← now red (no blue ever) */
+    font-size: 2.8rem;
   }
 
   .value-card {
     background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: var(--card-radius);
-    padding: 50px 35px;
+    padding: 55px 40px;
     text-align: center;
     transition: all var(--transition-speed) cubic-bezier(0.165, 0.84, 0.44, 1);
     height: 100%;
@@ -34,65 +36,60 @@
     overflow: hidden;
   }
 
-  /* Decorative element for a modern touch */
   .value-card::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: var(--primary-red);
+    height: 5px;
+    background: var(--accent-gold);      /* gold top bar */
     transform: scaleX(0);
     transition: transform var(--transition-speed) ease;
     transform-origin: left;
   }
 
   .value-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.08);
-    border-color: rgba(220, 53, 69, 0.2);
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px rgba(220, 53, 69, 0.15);
+    border-color: var(--primary-red);
   }
 
   .value-card:hover::before {
     transform: scaleX(1);
   }
 
-  /* Icon Container Placeholder */
   .value-icon-wrapper {
-    width: 70px;
-    height: 70px;
-    background: rgba(220, 53, 69, 0.05);
+    width: 80px;
+    height: 80px;
+    background: rgba(241, 196, 15, 0.1);   /* light gold */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 25px;
-    color: var(--primary-red);
-    font-size: 1.8rem;
+    margin: 0 auto 30px;
+    color: var(--primary-red);             /* red icon */
+    font-size: 2.2rem;
     transition: all var(--transition-speed) ease;
   }
 
   .value-card:hover .value-icon-wrapper {
     background: var(--primary-red);
     color: #ffffff;
+    transform: scale(1.1);
   }
 
   .value-title {
-    font-family: "Inter", sans-serif;
-    /* Modern alternative to Playfair if you want sleekness */
-    font-size: 1.5rem;
+    font-size: 1.55rem;
     font-weight: 700;
-    color: #2d3436;
-    margin-bottom: 15px;
+    color: var(--dark-text);
+    margin-bottom: 18px;
   }
 
   .value-description {
-    color: #636e72;
-    line-height: 1.8;
-    font-size: 1rem;
-    text-align: center;
-    /* Generally looks better for short value descriptions */
+    color: #555;
+    line-height: 1.85;
+    font-size: 1.05rem;
   }
 </style>
 {% endblock %}
@@ -102,8 +99,8 @@
   <div class="container">
     <div class="row mb-5 justify-content-center">
       <div class="col-lg-8 text-center">
-        <h2 class="section-title display-5">{% trans "Our Core Values" %}</h2>
-        <p class="lead text-muted mx-auto" style="max-width: 600px;">
+        <h2 class="section-title">{% trans "Our Core Values" %}</h2>
+        <p class="lead text-muted mx-auto" style="max-width: 620px;">
           {% trans "The principles that guide our culture and define our commitment to excellence." %}
         </p>
       </div>
@@ -116,7 +113,7 @@
           <div class="value-icon-wrapper">
             <i class="bi bi-shield-check"></i>
           </div>
-          <h4 class="value-title">{{ company.title }}</h4>
+          <h4 class="value-title" style="color: black !important;">{{ company.title }}</h4>
           <p class="value-description">{{ company.content }}</p>
         </div>
       </div>
