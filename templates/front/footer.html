@@ -224,11 +224,15 @@
           {% for contacts in contact %}
           <div class="f-contact-item">
             <div class="f-icon-box"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="small">{{ contacts.address }}</div>
+            <div class="f-link mb-0">{{ contacts.address }}</div>
           </div>
           <div class="f-contact-item">
             <div class="f-icon-box"><i class="fas fa-phone"></i></div>
             <a href="tel:{{ contacts.phone }}" class="f-link mb-0">{{ contacts.phone }}</a>
+          </div>
+          <div class="f-contact-item">
+            <div class="f-icon-box"><i class="fas fa-envelope"></i></div>
+            <a href="mailto:{{ contacts.email }}" class="f-link mb-0">{{ contacts.email }}</a>
           </div>
           {% endfor %}
         </div>
