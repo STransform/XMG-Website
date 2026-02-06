@@ -1,46 +1,113 @@
-{% load i18n %} {% load static %}
+{% load i18n %}
+{% load static %}
 
-<!-- Redesigned Statistics Section -->
 {% block css %}
 <style>
+  :root {
+    --xmg-dark: #0f172a;
+    --xmg-gold: #f1de63;
+    --xmg-border: rgba(255, 255, 255, 0.1);
+    --xmg-text-muted: #94a3b8;
+  }
+
   .stats-section {
-    background: linear-gradient(135deg, #f9f9f9, #eaeaea);
+    background-color: var(--xmg-dark);
     padding: 100px 0;
-    text-align: center;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
-  .stats-section .stat-item {
-    padding: 20px;
-    transition: transform 0.3s ease;
+  /* Subtle Blueprint Grid */
+  .stats-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--xmg-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--xmg-border) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+    pointer-events: none;
   }
 
-  .stats-section .stat-item:hover {
-    transform: translateY(-10px);
+  .stat-card {
+    position: relative;
+    padding: 3rem 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--xmg-border);
+    border-radius: 24px;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
   }
 
-  .stats-section .stat-number {
-    font-family: "Poppins", sans-serif;
-    font-size: 4rem;
-    font-weight: 700;
-    color: #ff4c60;
-    margin-bottom: 10px;
+  .stat-card:hover {
+    border-color: var(--xmg-gold);
+    background: rgba(241, 222, 99, 0.03);
+    transform: translateY(-5px);
   }
 
-  .stats-section .stat-label {
-    font-size: 1.2rem;
-    color: #555;
+  /* Corner Accent for the "Engineering" feel */
+  .stat-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, transparent 50%, var(--xmg-border) 50%);
+    transition: background 0.4s;
+  }
+
+  .stat-card:hover::after {
+    background: linear-gradient(45deg, transparent 50%, var(--xmg-gold) 50%);
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -2px;
+  }
+
+  .stat-number span.suffix {
+    color: var(--xmg-gold);
+    font-size: 2rem;
+    margin-left: 2px;
+  }
+
+  .stat-label {
+    display: block;
+    color: var(--xmg-text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
+    letter-spacing: 0.1em;
+  }
+
+  /* Decorative line */
+  .stat-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--xmg-gold);
+    margin: 1.5rem auto 0;
+    opacity: 0.3;
+    transition: width 0.4s;
+  }
+
+  .stat-card:hover .stat-divider {
+    width: 80px;
+    opacity: 1;
   }
 
   @media (max-width: 768px) {
-    .stats-section .stat-number {
-      font-size: 3rem;
-    }
-
-    .stats-section .stat-label {
-      font-size: 1rem;
+    .stat-number {
+      font-size: 2.5rem;
     }
   }
 </style>
@@ -48,75 +115,84 @@
 
 <section class="stats-section">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="stat-item">
-          <span class="stat-number" data-target="8" data-suffix="+">0+</span>
-          <span class="stat-label">{% trans "Projects Completed" %}</span>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="stat-item">
-          <span class="stat-number" data-target="10" data-suffix="+">0+</span>
-          <span class="stat-label">{% trans "Happy Clients" %}</span>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="stat-item">
-          <span class="stat-number" data-target="2" data-suffix="+">0+</span>
-          <span class="stat-label">{% trans "Years Experience" %}</span>
-        </div>
-      </div>
+    <div class="row g-4 justify-content-center">
+
       <div class="col-lg-3 col-md-6">
-        <div class="stat-item">
-          <span class="stat-number" data-target="24" data-suffix="/7">0/7</span>
-          <span class="stat-label">{% trans "Support Available" %}</span>
+        <div class="stat-card">
+          <span class="stat-number" data-target="8" data-suffix="+">0</span>
+          <span class="stat-label">{% trans "Global Projects" %}</span>
+          <div class="stat-divider"></div>
         </div>
       </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <span class="stat-number" data-target="12" data-suffix="+">0</span>
+          <span class="stat-label">{% trans "Strategic Partners" %}</span>
+          <div class="stat-divider"></div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <span class="stat-number" data-target="3" data-suffix="">0</span>
+          <span class="stat-label">{% trans "Industry Founders" %}</span>
+          <div class="stat-divider"></div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <span class="stat-number" data-target="24" data-suffix="/7">0</span>
+          <span class="stat-label">{% trans "Technical Support" %}</span>
+          <div class="stat-divider"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const statNumbers = document.querySelectorAll('.stat-number');
+    const animateCounter = (el) => {
+      const target = parseFloat(el.getAttribute('data-target'));
+      const suffix = el.getAttribute('data-suffix') || '';
+      const duration = 1500;
+      const frameRate = 1000 / 60;
+      const totalFrames = Math.round(duration / frameRate);
+      let frame = 0;
 
-    function animateCounter(element) {
-      const target = parseInt(element.getAttribute('data-target'));
-      const suffix = element.getAttribute('data-suffix') || '';
-      const duration = 2000; // 2 seconds
-      const increment = target / (duration / 16); // 60fps
-      let current = 0;
+      const count = () => {
+        frame++;
+        const progress = frame / totalFrames;
+        // Ease out expo for a "tech" feel
+        const currentCount = Math.round(target * (1 - Math.pow(2, -10 * progress)));
 
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
+        el.innerHTML = currentCount + `<span class="suffix">${suffix}</span>`;
+
+        if (frame < totalFrames) {
+          requestAnimationFrame(count);
+        } else {
+          el.innerHTML = target + `<span class="suffix">${suffix}</span>`;
         }
-        element.textContent = Math.floor(current) + suffix;
-      }, 16);
-    }
+      };
+      count();
+    };
 
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const statNumbers = entry.target.querySelectorAll('.stat-number');
-          statNumbers.forEach(stat => {
-            if (!stat.classList.contains('animated')) {
-              stat.classList.add('animated');
-              animateCounter(stat);
+          entry.target.querySelectorAll('.stat-number').forEach(num => {
+            if (!num.classList.contains('done')) {
+              num.classList.add('done');
+              animateCounter(num);
             }
           });
         }
       });
-    }, {
-      threshold: 0.5
-    });
+    }, { threshold: 0.2 });
 
-    const statsSection = document.querySelector('.stats-section');
-    if (statsSection) {
-      observer.observe(statsSection);
-    }
+    observer.observe(document.querySelector('.stats-section'));
   });
 </script>

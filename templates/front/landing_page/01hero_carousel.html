@@ -4,142 +4,193 @@
 {% block css %}
 <style>
   :root {
-    --primary-dark: #0f172a;
-    --accent-gold: #f1de63;
-    /* Your brand gold */
-    --accent-blue: #6366f1;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --white: #ffffff;
+    --xmg-orange: #ef410c;
+    --xmg-gold: #f1de63;
+    --xmg-navy: #6a6e79;
+    --xmg-glass: rgba(255, 255, 255, 0.03);
+    --xmg-border: rgba(255, 255, 255, 0.1);
   }
 
-  .hero-section {
-    min-height: 90vh;
+  .hero-wrapper {
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 4rem 1.5rem;
-    background: #ffffff;
+    background: var(--xmg-navy);
     overflow: hidden;
+    color: #ffffff;
+    font-family: 'Inter', system-ui, sans-serif;
   }
 
-  /* Sophisticated Mesh Gradient Background */
-  .hero-bg {
+  /* 1. Dynamic Background Elements */
+  .hero-visuals {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background-color: #ffffff;
-    background-image:
-      radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(241, 222, 99, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(241, 222, 99, 0.15) 0px, transparent 50%);
   }
 
-  /* Modern Subtle Grid Pattern */
-  .hero-bg::after {
+  .glow-sphere {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(239, 65, 12, 0.12) 0%, transparent 70%);
+    top: -10%;
+    right: -5%;
+    filter: blur(60px);
+    animation: float 20s infinite alternate;
+  }
+
+  /* 2. Professional Grid & Scanlines */
+  .hero-visuals::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%236366f1' stroke-width='0.5' stroke-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2v-4h4v-2H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(circle at center, black, transparent 90%);
   }
 
-  .hero-container {
+  /* 3. The Content Container */
+  .hero-main {
     position: relative;
     z-index: 10;
-    width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
+    width: 90%;
     text-align: center;
   }
 
-  /* Badge styling */
-  .hero-badge {
+  /* Status Badge */
+  .status-pill {
     display: inline-flex;
     align-items: center;
-    padding: 0.5rem 1rem;
-    border-radius: 99px;
-    background: rgba(99, 102, 241, 0.08);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    color: var(--accent-blue);
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    gap: 12px;
+    padding: 8px 20px;
+    background: var(--xmg-glass);
+    border: 1px solid var(--xmg-border);
+    border-radius: 50px;
+    backdrop-filter: blur(12px);
     margin-bottom: 2rem;
-    animation: fadeInUp 0.8s ease-out;
+    animation: slideDown 0.8s ease-out;
   }
 
-  .hero-title {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 800;
-    line-height: 1.1;
-    color: var(--primary-dark);
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-    animation: fadeInUp 1s ease-out;
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--xmg-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--xmg-gold);
+    animation: pulse 2s infinite;
   }
 
-  .hero-title span {
+  .status-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #cbd5e1;
+  }
+
+  /* Headline Styling */
+  .hero-h1 {
+    font-size: clamp(2.8rem, 9vw, 5.5rem);
+    font-weight: 900;
+    line-height: 0.95;
+    margin-bottom: 2rem;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-h1 span {
     display: block;
-    background: linear-gradient(135deg, #4f46e5 0%, #f1de63 100%);
+    background: linear-gradient(135deg, #fff 40%, var(--xmg-gold) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  .hero-description {
-    font-size: clamp(1.1rem, 2vw, 1.25rem);
-    color: var(--text-muted);
-    max-width: 650px;
-    margin: 0 auto 3rem auto;
-    line-height: 1.6;
-    animation: fadeInUp 1.2s ease-out;
+  .hero-p {
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    color: #94a3b8;
+    max-width: 750px;
+    margin: 0 auto 3.5rem;
+    line-height: 1.5;
+    font-weight: 300;
   }
 
-  /* Button Overhaul */
-  .hero-actions {
+  /* 4. Action Buttons with Hover Effects */
+  .cta-group {
     display: flex;
-    gap: 1rem;
+    gap: 20px;
     justify-content: center;
-    animation: fadeInUp 1.4s ease-out;
   }
 
-  .btn-base {
-    padding: 1rem 2.25rem;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 1rem;
+  .cta-btn {
+    position: relative;
+    padding: 1.2rem 3rem;
+    border-radius: 4px;
+    /* Industrial Square-ish look */
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
   }
 
-  .btn-filled {
-    background: var(--primary-dark);
+  .cta-primary {
+    background: var(--xmg-orange);
     color: white;
-    box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.2);
+    box-shadow: 0 0 0 0 rgba(239, 65, 12, 0);
   }
 
-  .btn-filled:hover {
-    background: #1e293b;
+  .cta-primary:hover {
+    background: #f1de63;
+    box-shadow: 0 0 30px rgba(239, 65, 12, 0.4);
     transform: translateY(-2px);
-    box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.2);
   }
 
-  .btn-ghost {
-    background: transparent;
-    color: var(--primary-dark);
-    border: 1px solid rgba(15, 23, 42, 0.1);
+  .cta-secondary {
+    border: 1px solid var(--xmg-border);
+    color: white;
+    background: rgba(255, 255, 255, 0.02);
   }
 
-  .btn-ghost:hover {
-    background: rgba(15, 23, 42, 0.03);
-    border-color: var(--primary-dark);
+  .cta-secondary:hover {
+    border-color: var(--xmg-gold);
+    color: var(--xmg-gold);
+    background: rgba(241, 222, 99, 0.05);
   }
 
-  @keyframes fadeInUp {
+  /* Animations */
+  @keyframes float {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(-30px, 40px);
+    }
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.5;
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes slideDown {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(-30px);
     }
 
     to {
@@ -148,39 +199,49 @@
     }
   }
 
-  @media (max-width: 640px) {
-    .hero-actions {
+  @media (max-width: 768px) {
+    .cta-group {
       flex-direction: column;
-      padding: 0 2rem;
+      align-items: center;
+    }
+
+    .cta-btn {
+      width: 100%;
+      text-align: center;
     }
   }
 </style>
 {% endblock %}
 
-<section class="hero-section">
-  <div class="hero-bg"></div>
+<section class="hero-wrapper">
+  <div class="hero-visuals">
+    <div class="glow-sphere"></div>
+  </div>
 
-  <div class="hero-container">
-    <div class="hero-badge">
-      <span>✨ {% trans "The Industry Leader in Engineering" %}</span>
+  <div class="hero-main">
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      <span class="status-text">{% trans "Leading ICT & Telecom Engineering" %}</span>
     </div>
 
-    <h1 class="hero-title">
-      {% trans "Innovating the Future" %}
-      <span>{% trans "of Modern Engineering" %}</span>
+    <h1 class="hero-h1">
+      {% trans "Welcome to" %}
+      <span>XMG Business Group</span>
     </h1>
 
-    <p class="hero-description">
-      {% trans "Empowering global industries with precision-driven engineering solutions and cutting-edge technological
-      frameworks." %}
+    <p class="hero-p">
+      {% blocktrans %}
+      A professional holding company integrating Telecom Engineering, ICT,
+      and Communications Expertise to solve tomorrow's industrial challenges.
+      {% endblocktrans %}
     </p>
 
-    <div class="hero-actions">
-      <a href="{% url 'services' %}" class="btn-base btn-filled">
+    <div class="cta-group">
+      <a href="{% url 'services' %}" class="cta-btn cta-primary">
         {% trans "Explore Services" %}
       </a>
-      <a href="{% url 'about' %}" class="btn-base btn-ghost">
-        {% trans "Learn More" %} →
+      <a href="{% url 'about' %}" class="cta-btn cta-secondary">
+        {% trans "Our Network" %}
       </a>
     </div>
   </div>
