@@ -770,8 +770,7 @@
                         <!-- End -->
 
                         <!-- Start::News & blogs -->
-                        {% if perms.news.view_newsarticle or perms.news.view_newscategory or perms.blogs.view_blog or
-                        perms.blogs.view_blogcategory %}
+                        {% if perms.news.view_newsarticle or perms.news.view_newscategory or perms.blogs.view_blog or perms.blogs.view_blogcategory %}
                         <li
                             class="slide has-sub {% if model_code == 'NewsArticle' or model_code == 'NewsCategory' or model_code == 'Blog' or model_code == 'BlogComment' or model_code == 'BlogCategory' %}  active open {% endif %}">
                             <a href="javascript:void(0);"
@@ -817,35 +816,29 @@
                         <!-- End -->
 
                         <!-- Start::Gallery -->
-                        {% if perms.dashboard.view_galleryimage or perms.dashboard.view_galleryimage or
-                        perms.dashboard.view_gallerycategory %}
-                        <li
-                            class="slide has-sub  {% if model_code == 'GalleryImage' or model_code == 'GalleryVideo' or model_code == 'GalleryCategory' %} active open {% endif %}">
+                         {% if perms.dashboard.view_galleryimage or perms.dashboard.view_galleryvideo or perms.dashboard.view_gallerycategory %}
+                        <li class="slide has-sub {% if model_code == 'GalleryImage' or model_code == 'GalleryVideo' or model_code == 'GalleryCategory' %} active open {% endif %}">
                             <a href="javascript:void(0);"
                                 class="side-menu__item {% if model_code == 'GalleryImage' or model_code == 'GalleryVideo' or model_code == 'GalleryCategory' %} active {% endif %}">
                                 <i class="bx bx-image side-menu__icon"></i>
-                                <span class="side-menu__label">Gallery </span>
+                                <span class="side-menu__label">Gallery</span>
                                 <i class="fe fe-chevron-right side-menu__angle"></i>
                             </a>
                             <ul class="slide-menu child1">
                                 {% if perms.dashboard.view_galleryimage %}
                                 <li class="slide"><a href="{% url 'list_view' model_name='GalleryImage' %}"
-                                        class="side-menu__item {% if model_code == 'GalleryImage' %} active {% endif %}">Images</a>
-                                </li>
+                                        class="side-menu__item {% if model_code == 'GalleryImage' %} active {% endif %}">Images</a></li>
                                 {% endif %}
 
                                 {% if perms.dashboard.view_galleryvideo %}
                                 <li class="slide"><a href="{% url 'list_view' model_name='GalleryVideo' %}"
-                                        class="side-menu__item {% if model_code == 'GalleryVideo' %} active {% endif %}">Videos</a>
-                                </li>
+                                        class="side-menu__item {% if model_code == 'GalleryVideo' %} active {% endif %}">Videos</a></li>
                                 {% endif %}
 
                                 {% if perms.dashboard.view_gallerycategory %}
                                 <li class="slide"><a href="{% url 'list_view' model_name='GalleryCategory' %}"
-                                        class="side-menu__item {% if model_code == 'GalleryCategory' %} active {% endif %}">Categories</a>
-                                </li>
+                                        class="side-menu__item {% if model_code == 'GalleryCategory' %} active {% endif %}">Categories</a></li>
                                 {% endif %}
-
                             </ul>
                         </li>
                         {% endif %}

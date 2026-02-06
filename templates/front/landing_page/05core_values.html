@@ -1,56 +1,123 @@
-{% load i18n %} {% load static %} {% block css %}
+{% load i18n %}
+{% load static %}
+
+{% block css %}
 <style>
+  :root {
+    --card-radius: 16px;
+    --transition-speed: 0.4s;
+    --primary-red: #dc3545;
+    /* Adjust based on your actual accent */
+  }
+
   .values-section {
-    padding: 100px 0;
-    background-color: var(--primary-white);
+    padding: 120px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  }
+
+  .section-title {
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
   }
 
   .value-card {
-    background: var(--primary-white);
-    border: 1px solid #e9ecef;
-    border-radius: 0;
-    padding: 40px 30px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: var(--card-radius);
+    padding: 50px 35px;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all var(--transition-speed) cubic-bezier(0.165, 0.84, 0.44, 1);
     height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative element for a modern touch */
+  .value-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-red);
+    transform: scaleX(0);
+    transition: transform var(--transition-speed) ease;
+    transform-origin: left;
   }
 
   .value-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(220, 53, 69, 0.1);
+    transform: translateY(-12px);
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.08);
+    border-color: rgba(220, 53, 69, 0.2);
+  }
+
+  .value-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  /* Icon Container Placeholder */
+  .value-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    background: rgba(220, 53, 69, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: var(--primary-red);
+    font-size: 1.8rem;
+    transition: all var(--transition-speed) ease;
+  }
+
+  .value-card:hover .value-icon-wrapper {
+    background: var(--primary-red);
+    color: #ffffff;
   }
 
   .value-title {
-    font-family: "Playfair Display", serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--accent-color);
-    margin-bottom: 20px;
+    font-family: "Inter", sans-serif;
+    /* Modern alternative to Playfair if you want sleekness */
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 15px;
   }
 
   .value-description {
-    color: var(--medium-gray);
-    line-height: 1.7;
-    font-size: 0.95rem;
+    color: #636e72;
+    line-height: 1.8;
+    font-size: 1rem;
+    text-align: center;
+    /* Generally looks better for short value descriptions */
   }
 </style>
-{% endblock %} {% if company_values %}
+{% endblock %}
+
+{% if company_values %}
 <section class="values-section">
   <div class="container">
-    <div class="row mb-5">
-      <div class="col-12 text-center">
-        <h2 class="section-title display-4">{% trans "Our Core Values" %}</h2>
-        <p class="lead text-muted">
-          {% trans "The principles that guide everything we do" %}
+    <div class="row mb-5 justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="section-title display-5">{% trans "Our Core Values" %}</h2>
+        <p class="lead text-muted mx-auto" style="max-width: 600px;">
+          {% trans "The principles that guide our culture and define our commitment to excellence." %}
         </p>
       </div>
     </div>
+
     <div class="row g-4">
       {% for company in company_values %}
       <div class="col-lg-4 col-md-6">
-        <div class="value-card corporate-card">
+        <div class="value-card">
+          <div class="value-icon-wrapper">
+            <i class="bi bi-shield-check"></i>
+          </div>
           <h4 class="value-title">{{ company.title }}</h4>
-          <p class="value-description text-justify">{{ company.content }}</p>
+          <p class="value-description">{{ company.content }}</p>
         </div>
       </div>
       {% endfor %}
