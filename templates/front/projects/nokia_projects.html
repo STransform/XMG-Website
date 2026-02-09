@@ -7,164 +7,86 @@
 {% block content %} 
 
 <style>
-    :root {
-        --nokia-dark: #003c71;
-        --nokia-accent: #00a1df;
-        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    }
-
-    .nokia-hero-item {
-        height: 600px;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-    }
-
-    .nokia-hero-item::after {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(135deg, rgba(0, 60, 113, 0.9) 0%, rgba(0, 60, 113, 0.4) 100%);
-    }
-
-    .nokia-card {
-        border: none;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: var(--card-shadow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        overflow: hidden;
-        height: 100%;
-    }
-
-    .nokia-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .nokia-card-img-main {
-        height: 220px;
-        object-fit: cover;
-        width: 100%;
-        transition: transform 0.5s ease;
-    }
-
-    .nokia-card:hover .nokia-card-img-main {
-        transform: scale(1.05);
-    }
-
-    .nokia-card-extra-img {
-        height: 90px;
-        object-fit: cover;
-        width: 100%;
-        border-radius: 4px;
-    }
-
-    .nokia-title {
-        color: var(--nokia-dark);
-        font-weight: 800;
-        font-size: 1.25rem;
-        margin-bottom: 15px;
-        border-left: 4px solid var(--nokia-accent);
-        padding-left: 15px;
-    }
-
-    .nokia-content {
-        color: #5f6f7f;
-        line-height: 1.7;
-        font-size: 0.95rem;
-    }
+    :root { --nokia-dark: #003c71; --nokia-accent: #00a1df; --card-shadow: 0 10px 30px rgba(0,0,0,0.09); }
+    .nokia-hero-item { height: 600px; background-size: cover; background-position: center; position: relative; }
+    .nokia-hero-item::after { content:''; position:absolute; inset:0; background: linear-gradient(135deg, rgba(0,60,113,0.88) 0%, rgba(0,60,113,0.38) 100%); }
+    .nokia-card { border:none; background:#fff; border-radius:8px; box-shadow:var(--card-shadow); transition:all .3s; overflow:hidden; height:100%; }
+    .nokia-card:hover { transform:translateY(-8px); box-shadow:0 15px 40px rgba(0,0,0,0.16); }
+    .nokia-card-img { height:220px; object-fit:cover; width:100%; transition:transform .5s; }
+    .nokia-card:hover .nokia-card-img { transform:scale(1.05); }
+    .nokia-title { color:var(--nokia-dark); font-weight:800; font-size:1.25rem; margin-bottom:15px; border-left:4px solid var(--nokia-accent); padding-left:15px; }
+    .nokia-content { color:#5f6f7f; line-height:1.7; font-size:0.95rem; max-height:120px; overflow:hidden; transition:max-height .4s ease; }
+    .nokia-content.expanded { max-height:600px; }
 </style>
 
 {% if projects %}
-<div class="owl-carousel owl-carousel-light manual nav-inside nav-inside-plus nav-md show-nav-hover mb-0"
-     data-plugin-options="{'autoplay': true, 'autoplayTimeout': 8000}" 
-     style="height: 600px;">
-    <div class="owl-stage-outer">
-        <div class="owl-stage">
-            {% for project in projects %}
-            {% if project.image %}
-            <div class="owl-item nokia-hero-item" style="background-image: url('{{ project.image.url }}');">
-            {% else %}
-            <div class="owl-item nokia-hero-item" style="background-image: url('{% static 'img/no-image.jpg' %}');">
-            {% endif %}
-                <div class="container position-relative z-index-1 h-100">
-                    <div class="d-flex flex-column align-items-start justify-content-center h-100 px-lg-5">
-                        <span class="text-color-light opacity-7 text-uppercase font-weight-bold mb-2">{% trans "Telecom Excellence" %}</span>
-                        <h1 class="text-color-light font-weight-bold text-12 mb-4 appear-animation" data-appear-animation="fadeInRightShorter">
-                            {{ project.title }}
-                        </h1>
-                        <p class="text-color-light text-4 opacity-8 col-lg-5 mb-0">
-                            {{ project.content|truncatechars:130 }}
-                        </p>
-                    </div>
-                </div>
+<div class="owl-carousel owl-carousel-light manual nav-inside nav-inside-plus nav-md show-nav-hover mb-0" data-plugin-options="{'autoplay': true, 'autoplayTimeout': 8000}" style="height: 600px;">
+    {% for project in projects %}
+    {% if project.image %}
+    <div class="owl-item nokia-hero-item" style="background-image: url('{{ project.image.url }}');">
+    {% else %}
+    <div class="owl-item nokia-hero-item" style="background-image: url('{% static 'img/no-image.jpg' %}');">
+    {% endif %}
+        <div class="container position-relative z-index-1 h-100">
+            <div class="d-flex flex-column align-items-start justify-content-center h-100 px-lg-5">
+                <span class="text-color-light opacity-7 text-uppercase font-weight-bold mb-2">{% trans "Telecom Excellence" %}</span>
+                <h1 class="text-color-light font-weight-bold text-12 mb-4 appear-animation" data-appear-animation="fadeInRightShorter">{{ project.title }}</h1>
+                <p class="text-color-light text-4 opacity-8 col-lg-5 mb-0">{{ project.content|truncatechars:130 }}</p>
             </div>
-            {% endfor %}
         </div>
     </div>
+    {% endfor %}
 </div>
 {% endif %}
+
+<div class="nokia-section-header">
+    <div class="container text-center">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}" class="text-decoration-none">{% trans "Home" %}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{% trans "Nokia Projects" %}</li>
+            </ol>
+        </nav>
+        <h1 class="display-4">Nokia <span style="color: var(--nokia-accent);">Projects</span></h1>
+        <p class="lead text-muted mx-auto" style="max-width: 720px;">World-class telecommunications infrastructure delivered with precision, innovation, and reliability.</p>
+    </div>
+</div>
 
 <div class="py-5 bg-light">
     <div class="container py-4">
         <div class="row g-4">
             {% for project in projects %}
-            <div class="col-lg-4 col-md-6 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+            <div class="col-lg-4 col-md-6">
                 <div class="nokia-card">
-                    
-                    <!-- Main image (like IP Surveillance) -->
                     {% if project.image %}
-                    <div class="overflow-hidden">
-                        <img src="{{ project.image.url }}" class="nokia-card-img-main" alt="{{ project.title }}">
-                    </div>
+                    <div class="overflow-hidden"><img src="{{ project.image.url }}" class="nokia-card-img" alt="{{ project.title }}"></div>
                     {% else %}
-                    <div class="overflow-hidden">
-                        <img src="{% static 'img/no-image.jpg' %}" class="nokia-card-img-main" alt="No image">
-                    </div>
+                    <div class="overflow-hidden"><img src="{% static 'img/no-image.jpg' %}" class="nokia-card-img" alt="No image"></div>
                     {% endif %}
-
-                    <!-- Three images grid (extra images) -->
-                    <div class="p-3 bg-light">
-                        <div class="row g-2">
-                            {% if project.extra_image_1 %}
-                            <div class="col-4">
-                                <img src="{{ project.extra_image_1.url }}" class="nokia-card-extra-img w-100" alt="Extra 1">
-                            </div>
-                            {% endif %}
-                            {% if project.extra_image_2 %}
-                            <div class="col-4">
-                                <img src="{{ project.extra_image_2.url }}" class="nokia-card-extra-img w-100" alt="Extra 2">
-                            </div>
-                            {% endif %}
-                            {% if project.image and not project.extra_image_1 and not project.extra_image_2 %}
-                            <!-- Fallback if only main image exists -->
-                            <div class="col-4">
-                                <img src="{{ project.image.url }}" class="nokia-card-extra-img w-100" alt="{{ project.title }}">
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-
                     <div class="p-4">
                         <h3 class="nokia-title">{{ project.title }}</h3>
-                        <div data-plugin-readmore data-plugin-options="{
-                            'buttonOpenLabel': 'Read More <i class=\'fas fa-chevron-down text-1 ms-1\'></i>',
-                            'buttonCloseLabel': 'Read Less <i class=\'fas fa-chevron-up text-1 ms-1\'></i>',
-                            'maxHeight': 120
-                        }">
-                            <p class="nokia-content mb-0">{{ project.content }}</p>
-                        </div>
+                        <div class="nokia-content" id="content-{{ project.id }}">{{ project.content }}</div>
+                        <a href="javascript:void(0)" onclick="toggleReadMore({{ project.id }})" class="text-primary fw-bold mt-3 d-block" id="btn-{{ project.id }}">Read More <i class="fas fa-chevron-down"></i></a>
                     </div>
                 </div>
-            </div>
-            {% empty %}
-            <div class="col-12 text-center py-5">
-                <p class="lead text-muted">No Nokia projects available at the moment.</p>
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
+
+<script>
+function toggleReadMore(id) {
+    const content = document.getElementById('content-' + id);
+    const btn = document.getElementById('btn-' + id);
+    if (content.classList.contains('expanded')) {
+        content.classList.remove('expanded');
+        btn.innerHTML = 'Read More <i class="fas fa-chevron-down"></i>';
+    } else {
+        content.classList.add('expanded');
+        btn.innerHTML = 'Read Less <i class="fas fa-chevron-up"></i>';
+    }
+}
+</script>
 
 {% endblock %}
