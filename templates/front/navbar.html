@@ -4,6 +4,7 @@
 {% block css %}
 {% endblock %}
 
+
 <!-- Navigation Bar -->
 <header id="header" style="max-height: 65px; height:65px;" class="header-effect-shrink"
     data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 85}">
@@ -86,8 +87,8 @@
 
         <div class="header-container container">
             <div class="header-row">
-                <div class="header-column">
-                    <div class="header-row">
+                <div class="header-column" >
+                    <div class="header-row" >
                         <div class="header-logo">
                             {% if stg.logo %}
                             <a href="{% url 'index' %}">
@@ -97,7 +98,7 @@
                             {% else %}
                             <a href="{% url 'index' %}">
                                 <img src="/static/front/imgs/logo/logo-otech.png" class="img-fluid" alt="Logo"
-                                    style="width: 75px; height: 60px;" />
+                                    style="width: 175px; height: 60px;" />
                             </a>
                             {% endif %}
                         </div>
@@ -147,6 +148,17 @@
                                                 <li><a class="dropdown-item" href="{% url 'infrastructure' %}">{% trans "Power Engineering" %}</a></li>
                                                 <li><a class="dropdown-item" href="{% url 'innovation' %}">{% trans "Fiber Optic System" %}</a></li>
                                                 <li><a class="dropdown-item" href="{% url 'innovation' %}">{% trans "IT & Networking" %}</a></li>
+                                            </ul>
+                                        </li>
+                                        {% endif %}
+                                        {% if pages.projects %}
+                                        <li class="dropdown ">
+                                            <a class="dropdown-item dropdown-toggle {% block projects_dynamic %} {% endblock %} {% if projects_page %} active {% endif %}"
+                                                href="{% url 'projects' %}">{% trans "Projects" %}</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="{% url 'solar_power_projects' %}">{% trans "Solar Power System" %}</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'ip_surveillance_projects' %}">{% trans "IP Camera & Surveillance Systems" %}</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'nokia_projects' %}">{% trans "Nokia Projects" %}</a></li>
                                             </ul>
                                         </li>
                                         {% endif %}
@@ -218,6 +230,15 @@
                                                 <li><a class="dropdown-item" href="{% url 'infrastructure' %}">{% trans "Power Engineering" %}</a></li>
                                                 <li><a class="dropdown-item" href="{% url 'innovation' %}">{% trans "Fiber Optic System" %}</a></li>
                                                 <li><a class="dropdown-item" href="{% url 'innovation' %}">{% trans "IT & Networking" %}</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle {% if projects_page %} active {% endif %}"
+                                            href="#">{% trans "Projects" %}</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="{% url 'solar_power_projects' %}">{% trans "Solar Power System" %}</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'ip_surveillance_projects' %}">{% trans "IP Camera & Surveillance System" %}</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'nokia_projects' %}">{% trans "Nokia Projects" %}</a></li>
                                             </ul>
                                         </li>
 

@@ -1,5 +1,5 @@
 from modeltranslation.translator import register,TranslationOptions
-from .models import About, TeamMember, BureauStructure, Service, Technology,Infrastructure,Innovation,CompanyValues,VisionMission,Vision,OtechExcellence,WhatPeopleSays,AboutOtechFooter,ElevatingSkills 
+from .models import About, IPCameraSurveillance, NokiaProject, SolarPowerProject, TeamMember, BureauStructure, Service, Technology,Infrastructure,Innovation,CompanyValues,VisionMission,Vision,OtechExcellence,WhatPeopleSays,AboutOtechFooter,ElevatingSkills 
 
 @register(About)
 class AboutTranslationOption(TranslationOptions):
@@ -55,3 +55,15 @@ class AboutOtechFooterTranslationOption(TranslationOptions):
 @register(ElevatingSkills)
 class ElevatingSkillsTranslationOption(TranslationOptions):
     fields = ('title','content')
+
+@register(SolarPowerProject)
+class SolarPowerProjectTranslation(TranslationOptions):
+    fields = ('title', 'content')
+
+@register(IPCameraSurveillance)
+class IPCameraSurveillanceTranslation(TranslationOptions):
+    fields = ('title', 'content')
+
+@register(NokiaProject)
+class NokiaProjectTranslation(TranslationOptions):
+    fields = ('title', 'content')

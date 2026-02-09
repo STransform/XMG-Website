@@ -17,5 +17,8 @@ urlpatterns = [
     path('about_footer/', AboutOtechFooterPage.as_view(), name='about_footer'),
     path('elevating_skills/', ElevatingSkillsPage.as_view(), name='elevating_skills'),
     path('our_partners/', OurPartnersPage.as_view(), name='our_partners'),
+    path('projects/solar-power/', SolarPowerProjectsPage.as_view(), name='solar_power_projects'),
+    path('projects/ip-surveillance/', IPSurveillanceProjectsPage.as_view(), name='ip_surveillance_projects'),
+    path('projects/nokia/', NokiaProjectsPage.as_view(), name='nokia_projects'),
 ]
 

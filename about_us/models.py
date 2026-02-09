@@ -238,3 +238,51 @@ class ElevatingSkills(models.Model):
         return ['title']
     
     list_fields = get_list_fields()
+
+class SolarPowerProject(models.Model):
+    title       = models.CharField(max_length=200)
+    image       = models.ImageField(upload_to='projects/solar/', blank=True, null=True)
+    content     = models.TextField(blank=True)          # optional rich text
+    order       = models.PositiveSmallIntegerField(default=0, help_text="Display order")
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Solar Power Project"
+        verbose_name_plural = "Solar Power Projects"
+
+    def __str__(self):
+        return self.title
+
+
+class IPCameraSurveillance(models.Model):
+    title       = models.CharField(max_length=200)
+    content     = models.TextField()
+    image       = models.ImageField(upload_to='projects/surveillance/', blank=True, null=True)
+    extra_image_1 = models.ImageField(upload_to='projects/surveillance/', blank=True, null=True)
+    extra_image_2 = models.ImageField(upload_to='projects/surveillance/', blank=True, null=True)
+    order       = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "IP Camera & Surveillance Project"
+        verbose_name_plural = "IP Camera & Surveillance Projects"
+
+    def __str__(self):
+        return self.title
+
+
+class NokiaProject(models.Model):
+    title         = models.CharField(max_length=200)
+    content       = models.TextField(blank=True)
+    image         = models.ImageField(upload_to='projects/nokia/', blank=True, null=True)          # Main image
+    extra_image_1 = models.ImageField(upload_to='projects/nokia/', blank=True, null=True)
+    extra_image_2 = models.ImageField(upload_to='projects/nokia/', blank=True, null=True)
+    order         = models.PositiveSmallIntegerField(default=0, help_text="Display order")
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Nokia Project"
+        verbose_name_plural = "Nokia Projects"
+
+    def __str__(self):
+        return self.title

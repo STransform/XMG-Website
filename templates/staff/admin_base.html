@@ -731,7 +731,49 @@
 
                             </ul>
                         </li>
+                        
                         {% endif %}
+                        <!-- Start::Projects -->
+                        {% if perms.dashboard.view_solarpowerproject or perms.dashboard.view_ipcamerasurveillance or perms.dashboard.view_nokaproject %}
+                        <li
+                            class="slide has-sub {% if model_code == 'SolarPowerProject' or model_code == 'IPCameraSurveillance' or model_code == 'NokiaProject' %} active open {% endif %}">
+                            <a href="javascript:void(0);"
+                            class="side-menu__item {% if model_code == 'SolarPowerProject' or model_code == 'IPCameraSurveillance' or model_code == 'NokiaProject' %} active {% endif %}">
+                                <i class="bx bx-briefcase side-menu__icon"></i>
+                                <span class="side-menu__label">Projects</span>
+                                <i class="fe fe-chevron-right side-menu__angle"></i>
+                            </a>
+                            <ul class="slide-menu child1">
+                                {% if perms.dashboard.view_solarpowerproject %}
+                                <li class="slide">
+                                    <a href="{% url 'list_view' model_name='SolarPowerProject' %}"
+                                    class="side-menu__item {% if model_code == 'SolarPowerProject' %} active {% endif %}">
+                                        Solar Power System
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                {% if perms.dashboard.view_ipcamerasurveillance %}
+                                <li class="slide">
+                                    <a href="{% url 'list_view' model_name='IPCameraSurveillance' %}"
+                                    class="side-menu__item {% if model_code == 'IPCameraSurveillance' %} active {% endif %}">
+                                        IP Camera & Surveillance
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                {% if perms.dashboard.view_nokaproject %}
+                                <li class="slide">
+                                    <a href="{% url 'list_view' model_name='NokiaProject' %}"
+                                    class="side-menu__item {% if model_code == 'NokiaProject' %} active {% endif %}">
+                                        Nokia Projects
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        {% endif %}
+                        <!-- End::Projects -->
                         <!-- Start::Announcements -->
                         {% if perms.dashboard.view_bid or perms.dashboard.view_event or perms.vacancies.view_job %}
                         <li

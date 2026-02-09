@@ -1,0 +1,159 @@
+{% extends 'front/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block projects %} active {% endblock %}
+{% block projects_dynamic %} active {% endblock %}
+
+{% block content %} 
+
+<style>
+    /* Solar Power Theme Variables */
+    :root {
+        --solar-dark: #1a3c34;
+        --solar-accent: #f39c12;
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .solar-hero-item {
+        height: 600px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .solar-hero-item::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(135deg, rgba(26, 60, 52, 0.85) 0%, rgba(26, 60, 52, 0.35) 100%);
+    }
+
+    .solar-card {
+        border: none;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: var(--card-shadow);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        height: 100%;
+    }
+
+    .solar-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .solar-card-img {
+        height: 220px;
+        object-fit: cover;
+        width: 100%;
+        transition: transform 0.5s ease;
+    }
+
+    .solar-card:hover .solar-card-img {
+        transform: scale(1.05);
+    }
+
+    .solar-title {
+        color: var(--solar-dark);
+        font-weight: 800;
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+        border-left: 4px solid var(--solar-accent);
+        padding-left: 15px;
+    }
+
+    .solar-content {
+        color: #5c6b6a;
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    .solar-section-header {
+        background: #f9fdfc;
+        padding: 80px 0 40px;
+        text-align: center;
+    }
+
+    .solar-section-header h1 {
+        font-weight: 800;
+        color: var(--solar-dark);
+        letter-spacing: -1px;
+    }
+</style>
+
+{% if projects %}
+<div class="owl-carousel owl-carousel-light manual nav-inside nav-inside-plus nav-md show-nav-hover mb-0"
+     data-plugin-options="{'autoplay': true, 'autoplayTimeout': 8000}" 
+     style="height: 600px;">
+    <div class="owl-stage-outer">
+        <div class="owl-stage">
+            {% for project in projects %}
+            <div class="owl-item solar-hero-item" style="background-image: url('{{ project.image.url }}');">
+                <div class="container position-relative z-index-1 h-100">
+                    <div class="d-flex flex-column align-items-start justify-content-center h-100 px-lg-5">
+                        <span class="text-color-light opacity-7 text-uppercase font-weight-bold mb-2">{% trans "Renewable Energy" %}</span>
+                        <h1 class="text-color-light font-weight-bold text-12 mb-4 appear-animation" data-appear-animation="fadeInRightShorter">
+                            {{ project.title }}
+                        </h1>
+                        <p class="text-color-light text-4 opacity-8 col-lg-5 mb-0">
+                            {{ project.content|truncatechars:130 }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="solar-section-header">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}" class="text-decoration-none">{% trans "Home" %}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{% trans "Solar Power System" %}</li>
+            </ol>
+        </nav>
+        <h1 class="display-4">Solar Power <span style="color: var(--solar-accent);">Systems</span></h1>
+        <p class="lead text-muted mx-auto" style="max-width: 720px;">Sustainable, efficient, and future-ready solar energy solutions for residential, commercial, and industrial applications.</p>
+    </div>
+</div>
+
+<div class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-lg-4 col-md-6 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+                <div class="solar-card">
+                    {% if project.image %}
+                    <div class="overflow-hidden">
+                        <img src="{{ project.image.url }}" class="solar-card-img" alt="{{ project.title }}">
+                    </div>
+                    {% endif %}
+                    
+                    <div class="p-4">
+                        <h3 class="solar-title">{{ project.title }}</h3>
+                        
+                        <div data-plugin-readmore data-plugin-options="{
+                            'buttonOpenLabel': 'Read More <i class=\'fas fa-chevron-down text-1 ms-1\'></i>',
+                            'buttonCloseLabel': 'Read Less <i class=\'fas fa-chevron-up text-1 ms-1\'></i>',
+                            'maxHeight': 120
+                        }">
+                            <p class="solar-content mb-0">{{ project.content }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <p class="lead text-muted">No solar power projects available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

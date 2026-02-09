@@ -109,3 +109,35 @@ class OurPartnersPage(View): # Render service page
     def get(self, request, **kwargs):
         our_partners = OurPartners.objects.all()
         return render(request, "front/our_partners.html", {'our_partners':our_partners, 'about_page': True,})
+
+class SolarPowerProjectsPage(View):
+    def get(self, request):
+        projects = SolarPowerProject.objects.all()
+        return render(request, "front/projects/solar_power.html", {
+            'projects': projects,
+            'page_title': 'Solar Power Systems',
+            'page_subtitle': 'Reliable and sustainable solar energy solutions',
+            'projects_page': True,
+        })
+
+
+class IPSurveillanceProjectsPage(View):
+    def get(self, request):
+        projects = IPCameraSurveillance.objects.all()
+        return render(request, "front/projects/ip_surveillance.html", {
+            'projects': projects,
+            'page_title': 'IP Camera & Surveillance Systems',
+            'page_subtitle': 'Advanced security and monitoring solutions',
+            'projects_page': True,
+        })
+
+
+class NokiaProjectsPage(View):
+    def get(self, request):
+        projects = NokiaProject.objects.all()
+        return render(request, "front/projects/nokia_projects.html", {
+            'projects': projects,
+            'page_title': 'Nokia Projects',
+            'page_subtitle': 'High-performance telecom & network implementations',
+            'projects_page': True,
+        })
