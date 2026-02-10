@@ -200,10 +200,9 @@ LANGUAGE_CODE = 'en'
 
 # other languages
 LANGUAGES = [
-    ('en', ('English')),
-    ('ax', ('Amharic')),
-    ('ox', ('Afaan Oromoo')),
-    
+    ('en', 'English'),
+    ('ax', 'Amharic'),
+    ('ox', 'Afaan Oromoo'),
 ]
 
 

@@ -6,7 +6,7 @@
   :root {
     --xmg-orange: #ef410c;
     --xmg-gold: #f1de63;
-    --xmg-navy: #6a6e79;
+    --xmg-navy: #ffffff;
     --xmg-glass: rgba(255, 255, 255, 0.03);
     --xmg-border: rgba(255, 255, 255, 0.1);
   }
@@ -90,7 +90,7 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 700;
-    color: #cbd5e1;
+    color: #800000;
   }
 
   /* Headline Styling */
@@ -104,7 +104,7 @@
 
   .hero-h1 span {
     display: block;
-    background: linear-gradient(135deg, #fff 40%, var(--xmg-gold) 100%);
+    background: #800000;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -237,10 +237,10 @@
     </p>
 
     <div class="cta-group">
-      <a href="{% url 'services' %}" class="cta-btn cta-primary">
+      <a href="{% url 'services' %}" class="cta-btn" style="background-color: #800000;color: #ffffff;">
         {% trans "Explore Services" %}
       </a>
-      <a href="{% url 'about' %}" class="cta-btn cta-secondary">
+      <a href="{% url 'about' %}" class="cta-btn" style="background-color: #000000; color: #ffffff;">
         {% trans "Our Network" %}
       </a>
     </div>

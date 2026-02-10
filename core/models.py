@@ -28,7 +28,7 @@ class Settings(models.Model):
     is_single = True # Tells if the model should have multiple or single objects
     title = models.CharField(max_length=255, blank=False, default ="OTech Engineering", 
                              help_text="Make sure to submit a max of 255 characters.")
-    logo = models.ImageField(upload_to="Logo",help_text="Make sure to submit an image of equal width and height preferably with empty background.")
+    logo = models.ImageField(upload_to="Logo",blank=True, null=True, default=None,help_text="Make sure to submit an image of equal width and height preferably with empty background.")
     phone1 = models.CharField(max_length=255, blank=False, )
     phone2 = models.CharField(max_length=255, blank=True,default = "" )
     email = models.EmailField(blank=True)

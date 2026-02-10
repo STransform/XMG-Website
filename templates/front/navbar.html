@@ -2,6 +2,36 @@
 
 <!-- CSS -->
 {% block css %}
+<style>
+    .header-container {
+        background-color: #800000 !important;
+    }
+    .header-nav-main nav > ul > li > a {
+        color: white !important;
+    }
+    .header-nav-main nav > ul > li.dropdown .dropdown-menu {
+        background-color: #800000 !important;
+    }
+    .header-nav-main nav > ul > li.dropdown .dropdown-menu > li > a {
+        color: white !important;
+    }
+    .header-nav-main nav > ul > li.dropdown .dropdown-menu > li > a:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important; /* Subtle hover effect */
+    }
+    /* Optional: Adjust language selector for better contrast */
+    #id_lang_selector_form select {
+        background-color: #800000 !important;
+        color: white !important;
+        border-color: white !important;
+    }
+    /* Optional: Search icon and other elements */
+    .header-nav-features-toggle {
+        color: white !important;
+    }
+    .header-btn-collapse-nav {
+        color: white !important;
+    }
+</style>
 {% endblock %}
 
 
@@ -90,17 +120,23 @@
                 <div class="header-column" >
                     <div class="header-row" >
                         <div class="header-logo">
-                            {% if stg.logo %}
                             <a href="{% url 'index' %}">
-                                <img src="{{stg.logo.url}}" class="img-fluid" alt="Logo"
-                                    style="width: 60px; height: 60px;" />
+                                {% if stg.logo %}
+                                    <img 
+                                        src="{{ stg.logo.url }}" 
+                                        alt="XMG Business Group PLC Logo" 
+                                        class="img-fluid" 
+                                        style="height: 50px; width: auto; max-width: 220px; object-fit: contain; vertical-align: middle;"
+                                    />
+                                {% else %}
+                                    <img 
+                                        src="/static/front/imgs/logo/xmgafrica-logo.png" 
+                                        alt="XMG Business Group PLC Logo" 
+                                        class="img-fluid" 
+                                        style="height: 50px; width: auto; max-width: 220px; object-fit: contain; vertical-align: middle;"
+                                    />
+                                {% endif %}
                             </a>
-                            {% else %}
-                            <a href="{% url 'index' %}">
-                                <img src="/static/front/imgs/logo/logo-otech.png" class="img-fluid" alt="Logo"
-                                    style="width: 175px; height: 60px;" />
-                            </a>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -242,14 +278,14 @@
                                             </ul>
                                         </li>
 
-                                        <li class="dropdown ">
+                                        <!-- <li class="dropdown ">
                                             <a class="dropdown-item dropdown-toggle {% block announcement %} {% endblock %} {% if announcement_page %} active {% endif %}"
                                                 href="#">{% trans "Announcements" %}</a>
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item" href="{% url 'bid' %}">{% trans "Bids" %}</a></li>
                                                 <li><a class="dropdown-item" href="{% url 'job_list' %}">{% trans "Vacancies" %}</a></li>
                                             </ul>
-                                        </li>
+                                        </li> -->
 
                                         <li><a class="nav-link {% block Blogs %} {% endblock %} {% if blog_page %} active {% endif %}"
                                                 href="{% url 'blog_list' %}">{% trans "Blogs" %}</a></li>
