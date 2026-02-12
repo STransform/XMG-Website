@@ -21,7 +21,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # lists of allowed hosts
-ALLOWED_HOSTS = [ '172.10.11.211', '192.168.0.102','172.10.10.83', 'otech.et', 'www.otech.et','127.0.0.1','localhost']
+ALLOWED_HOSTS = [ 'xmgafrica.com', 'www.xmgafrica.com','.xmgafrica.com', 'server123.web-hosting.com','www.server123.web-hosting.com','localhost']
 CSRF_COOKIE_SECURE = True
 
 # Application definition
@@ -171,11 +171,12 @@ WSGI_APPLICATION = 'otech_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'xmgdb11',
-        'USER': 'root',
-        'PASSWORD': 'Simon@1234',
+        'NAME': 'xmgafric_newdb',
+        'USER': 'xmgafric_newuser',
+        'PASSWORD': '10QGod4ever.',
         'HOST': 'localhost',
         'PORT': '3306',
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
@@ -255,7 +256,9 @@ GRAPH_MODELS ={
 # static
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [BASE_DIR, "static"]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -343,6 +346,13 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Logout if the user closes the browser
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True # Use ssl for subdomains too
 # CSRF_COOKIE_SECURE = True # No csrf for http requests
 # SESSION_COOKIE_SECURE = True # No Session for http request
+
+# Security (recommended)
+SECURE_SSL_REDIRECT = True          # if using free SSL
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
