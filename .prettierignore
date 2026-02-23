@@ -1,0 +1,3 @@
+# Prettier breaks Django template tags when they span multiple lines.
+# Ignore all Django HTML templates to prevent TemplateSyntaxErrors.
+templates/

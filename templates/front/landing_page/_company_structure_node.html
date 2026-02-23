@@ -1,0 +1,40 @@
+{% load humanize %}  <!-- optional - makes numbers nicer (1,234 instead of 1234) -->
+
+<li>
+    <div class="node-wrapper">
+        <div class="node-box">{{ current_node.title }}</div>
+
+        {% if current_node.team_leader_count > 0 or current_node.technician_count > 0 or current_node.daily_laborer_count > 0 %}
+        <table class="node-stats">
+            {% if current_node.team_leader_count > 0 %}
+            <tr>
+                <td>Team Leader{% if current_node.team_leader_count > 1 %}s{% endif %}</td>
+                <td class="qty">{{ current_node.team_leader_count }}</td>
+            </tr>
+            {% endif %}
+
+            {% if current_node.technician_count > 0 %}
+            <tr>
+                <td>Technician{% if current_node.technician_count > 1 %}s{% endif %}</td>
+                <td class="qty">{{ current_node.technician_count }}</td>
+            </tr>
+            {% endif %}
+
+            {% if current_node.daily_laborer_count > 0 %}
+            <tr>
+                <td>Daily Laborer{% if current_node.daily_laborer_count > 1 %}s{% endif %}</td>
+                <td class="qty">{{ current_node.daily_laborer_count }}</td>
+            </tr>
+            {% endif %}
+        </table>
+        {% endif %}
+    </div>
+
+    {% if current_node.children.all %}
+    <ul>
+        {% for child in current_node.children.all|dictsort:"order" %}
+            {% include "front/landing_page/_company_structure_node.html" with current_node=child %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>

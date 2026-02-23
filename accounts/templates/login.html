@@ -1,116 +1,109 @@
 {% extends 'front/base.html' %}
 {% load i18n %}
 {% load static %}
-{% block content %}
 
+{% block content %}
 <style>
     :root {
-        --primary-white: #ffffff;
-        --primary-black: #000000;
-        --accent-color: #ed242a;
-        --light-gray: #f8f9fa;
-        --medium-gray: #6c757d;
-        --dark-gray: #343a40;
-        --green-color: #28a745;
+        --primary: #800000; /* Maroon from your hero */
+        --accent: #ed242a;
+        --dark: #0f172a;
+        --glass: rgba(255, 255, 255, 0.05);
+        --input-bg: #f8fafc;
+        --text-main: #1e293b;
     }
 
-    /* Desktop-first admin dashboard layout with split screen design */
     .admin-login-container {
-        background-color: var(--primary-white);
         min-height: 100vh;
         display: flex;
-        width: 100%;
+        background-color: #ffffff;
     }
 
+    /* Left Side: Brand Panel */
     .login-brand-panel {
-        background: linear-gradient(135deg, var(--primary-black) 0%, var(--dark-gray) 100%);
         flex: 0 0 50%;
+        background: radial-gradient(circle at top left, #2c3e50, #000000);
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 4rem 3rem;
         position: relative;
         overflow: hidden;
-        min-height: 100vh;
     }
 
-    .login-brand-panel::before {
+    /* Modern geometric overlay */
+    .login-brand-panel::after {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-        opacity: 0.3;
+        width: 200%;
+        height: 200%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.828-1.415 1.415L51.8 0h2.827zM5.373 0l-.83.828L5.96 2.243 8.2 0H5.374zM48 0l3 3 3-3h-6zm-36 0l3 3 3-3h-6zm30 0l3 3 3-3h-6zm-24 0l3 3 3-3h-6zM0 60l.828-.83L2.243 57.76 0 55.517V60zm60 0l-.828-.83L57.76 57.76 60 55.517V60zM48 60l3-3 3 3h-6zm-36 0l3-3 3 3h-6zm30 0l3-3 3 3h-6zm-24 0l3-3 3 3h-6z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
     }
 
     .brand-content {
+        z-index: 2;
         text-align: center;
-        z-index: 1;
-        position: relative;
-        max-width: 500px;
+        padding: 3rem;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 40px;
+        max-width: 420px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
     .brand-logo {
-        height: 200px;
-        padding: 10px;
-        background: var(--primary-white);
-        border-radius: 50%;
+        width: 140px;
+        height: 140px;
+        object-fit: contain;
+        background: white;
+        padding: 15px;
+        border-radius: 30px;
         margin-bottom: 2rem;
-        filter: brightness(1.2);
+        box-shadow: 0 0 30px rgba(255,255,255,0.1);
     }
 
     .brand-title {
-        color: var(--primary-white);
         font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        letter-spacing: -0.5px;
-        line-height: 1.2;
+        font-weight: 800;
+        color: white;
+        letter-spacing: -1px;
+        margin-bottom: 0.5rem;
     }
 
     .brand-subtitle {
-        color: var(--light-gray);
+        color: #94a3b8;
         font-size: 1.1rem;
-        font-weight: 400;
-        opacity: 0.9;
-        line-height: 1.6;
+        letter-spacing: 3px;
+        text-transform: uppercase;
     }
 
+    /* Right Side: Form Panel */
     .login-form-panel {
-        background-color: var(--primary-white);
-        flex: 0 0 50%;
+        flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 4rem 3rem;
-        min-height: 100vh;
+        padding: 4rem;
     }
 
     .login-form-container {
         width: 100%;
-        max-width: 480px;
+        max-width: 420px;
     }
 
     .form-header {
-        margin-bottom: 3rem;
-        text-align: left;
+        margin-bottom: 2.5rem;
     }
 
     .form-title {
-        color: var(--primary-black);
-        font-size: 2.25rem;
-        font-weight: 600;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark);
         margin-bottom: 0.5rem;
-        line-height: 1.2;
     }
 
     .form-subtitle {
-        color: var(--medium-gray);
-        font-size: 1.1rem;
-        font-weight: 400;
+        color: #64748b;
     }
 
     .form-group {
@@ -118,229 +111,132 @@
     }
 
     .form-label {
-        color: var(--primary-black);
-        font-weight: 500;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #475569;
         margin-bottom: 0.5rem;
         display: block;
-        font-size: 0.95rem;
-    }
-
-    .form-input {
-        background-color: var(--primary-white);
-        border: 2px solid var(--light-gray);
-        border-radius: 8px;
-        padding: 1rem 1rem 1rem 3rem;
-        color: var(--primary-black);
-        font-size: 1rem;
-        width: 100%;
-        transition: all 0.3s ease;
-        position: relative;
-    }
-
-    .form-input:focus {
-        border-color: var(--accent-color);
-        box-shadow: 0 0 0 3px rgba(237, 36, 42, 0.1);
-        outline: none;
     }
 
     .input-wrapper {
         position: relative;
     }
 
+    .form-input {
+        width: 100%;
+        padding: 14px 14px 14px 45px;
+        background: var(--input-bg);
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .form-input:focus {
+        background: white;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(128, 0, 0, 0.05);
+        outline: none;
+    }
+
     .input-icon {
-        color: var(--medium-gray);
         position: absolute;
-        left: 15px;
+        left: 16px;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 1.1rem;
-        z-index: 1;
+        color: #94a3b8;
+        transition: color 0.3s;
+    }
+
+    .form-input:focus + .input-icon {
+        color: var(--primary);
+    }
+
+    /* Button Styling */
+    .btn-corporate-red {
+        width: 100%;
+        padding: 16px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s;
+        box-shadow: 0 10px 15px -3px rgba(128, 0, 0, 0.2);
+    }
+
+    .btn-corporate-red:hover {
+        background: #660000;
+        transform: translateY(-2px);
+        box-shadow: 0 20px 25px -5px rgba(128, 0, 0, 0.25);
     }
 
     .form-actions {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
+        justify-content: flex-end;
+        margin-bottom: 1.5rem;
     }
 
     .forgot-link {
-        color: var(--accent-color);
+        font-size: 0.85rem;
+        color: var(--primary);
         text-decoration: none;
-        font-weight: 500;
-        font-size: 0.9rem;
-    }
-
-    .forgot-link:hover {
-        color: var(--primary-black);
-        text-decoration: underline;
-    }
-
-    /* Updated button styling to be consistent with btn-corporate-red */
-    .btn-corporate-red {
-        border: none;
-        border-radius: 8px;
-        padding: 1rem 2rem;
         font-weight: 600;
-        font-size: 1rem;
-        width: 100%;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
     }
 
-
-    /* Responsive design - mobile adjustments only when needed */
-    @media (max-width: 1024px) {
-        .login-brand-panel {
-            flex: 0 0 40%;
-        }
-
-        .login-form-panel {
-            flex: 0 0 60%;
-        }
-
-        .brand-title {
-            font-size: 2rem;
-        }
+    /* Responsive */
+    @media (max-width: 900px) {
+        .login-brand-panel { display: none; }
+        .login-form-panel { padding: 2rem; }
     }
 
-    @media (max-width: 768px) {
-        .admin-login-container {
-            flex-direction: column;
-        }
-
-        .login-brand-panel {
-            flex: none;
-            min-height: 40vh;
-            padding: 2rem;
-        }
-
-        .brand-title {
-            font-size: 1.75rem;
-        }
-
-        .login-form-panel {
-            flex: none;
-            padding: 2rem 1.5rem;
-            min-height: 60vh;
-        }
-
-        .form-title {
-            font-size: 1.75rem;
-        }
-    }
-
-    /* Django messages alert styles */
-    .messages-container {
-        margin-bottom: 2rem;
-    }
-
+    /* Alert Styling */
     .alert {
-        padding: 1rem 1.25rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        border: 1px solid transparent;
-        position: relative;
+        padding: 12px 16px;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
         display: flex;
         align-items: center;
-        font-size: 0.95rem;
-        font-weight: 500;
+        gap: 10px;
+        border: 1px solid;
     }
-
-    .alert-success {
-        background-color: rgba(40, 167, 69, 0.1);
-        border-color: var(--green-color);
-        color: var(--green-color);
-    }
-
-    .alert-warning {
-        background-color: rgba(237, 36, 42, 0.1);
-        border-color: var(--accent-color);
-        color: var(--accent-color);
-    }
-
-    .alert-info {
-        background-color: rgba(108, 117, 125, 0.1);
-        border-color: var(--medium-gray);
-        color: var(--medium-gray);
-    }
-
-    .alert-error {
-        background-color: rgba(237, 36, 42, 0.1);
-        border-color: var(--accent-color);
-        color: var(--accent-color);
-    }
-
-    .alert-icon {
-        margin-right: 0.75rem;
-        font-size: 1.1rem;
-    }
-
-    .alert-dismiss {
-        position: absolute;
-        right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        color: inherit;
-        cursor: pointer;
-        font-size: 1.2rem;
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
-    }
-
-    .alert-dismiss:hover {
-        opacity: 1;
-    }
+    .alert-error { background: #fef2f2; border-color: #fecaca; color: #b91c1c; }
+    .alert-success { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
 </style>
 
 <div class="admin-login-container">
-    <!-- Left brand panel for professional admin look -->
     <div class="login-brand-panel">
         <div class="brand-content">
             {% if stg.logo %}
             <img src="{{stg.logo.url}}" alt="Logo" class="brand-logo">
             {% else %}
-            <img src="{% static 'front/imgs/logo/logo-otech.png' %}" alt="Logo" class="brand-logo">
+            <img src="{% static 'front/imgs/logo/xmgafrica-logo.png' %}" alt="Logo" class="brand-logo">
             {% endif %}
-            <h1 class="brand-title">OTech Engineering and Technology Solution P.L.C.</h1>
-            <p class="brand-subtitle">LET'S OWN THE FUTURE.</p>
+            <h1 class="brand-title">XMG Africa</h1>
+            <p class="brand-subtitle">Let's Build.</p>
         </div>
     </div>
 
-    <!-- Right form panel with professional styling -->
     <div class="login-form-panel">
         <div class="login-form-container">
             <div class="form-header">
-                <h2 class="form-title">Welcome Back</h2>
-                <p class="form-subtitle">Please sign in to your account</p>
+                <h2 class="form-title">Portal Access</h2>
+                <p class="form-subtitle">Enter your credentials to manage the workspace.</p>
             </div>
 
-            <!-- Django messages display section -->
             {% if messages %}
             <div class="messages-container">
                 {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}" role="alert">
-                    {% if message.tags == 'success' %}
-                    <i class="fa fa-check-circle alert-icon"></i>
-                    {% elif message.tags == 'warning' %}
-                    <i class="fa fa-exclamation-triangle alert-icon"></i>
-                    {% elif message.tags == 'info' %}
-                    <i class="fa fa-info-circle alert-icon"></i>
-                    {% elif message.tags == 'error' %}
-                    <i class="fa fa-times-circle alert-icon"></i>
-                    {% endif %}
+                <div class="alert alert-{{ message.tags }}">
+                    <i class="fas fa-info-circle"></i>
                     <span>{{ message }}</span>
-                    <button type="button" class="alert-dismiss" onclick="this.parentElement.style.display='none'">
-                        <i class="fa fa-times"></i>
-                    </button>
                 </div>
                 {% endfor %}
             </div>
@@ -349,34 +245,31 @@
             <form action="" method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label class="form-label">{% trans "Email Address" %}</label>
+                    <label class="form-label">Work Email</label>
                     <div class="input-wrapper">
-                        <i class="fa fa-envelope input-icon"></i>
-                        <input type="email" name="email" value="" class="form-input" required>
+                        <input type="email" name="email" class="form-input" placeholder="name@company.com" required>
+                        <i class="fas fa-envelope input-icon"></i>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">{% trans "Password" %}</label>
+                    <label class="form-label">Secure Password</label>
                     <div class="input-wrapper">
-                        <i class="fa fa-lock input-icon"></i>
-                        <input type="password" name="password" value="" class="form-input" required>
+                        <input type="password" name="password" class="form-input" placeholder="••••••••" required>
+                        <i class="fas fa-lock input-icon"></i>
                     </div>
                 </div>
 
                 <div class="form-actions">
-                    <div></div>
-                    <a class="forgot-link" href="{% url 'reset_password' %}">{% trans "Forgot Password?" %}</a>
+                    <a class="forgot-link" href="{% url 'reset_password' %}">Recovery access?</a>
                 </div>
 
-                <!-- Fixed sign in button icon and made it consistent -->
-                <button type="submit" class="btn-corporate-red" data-loading-text="Loading...">
-                    <i class="fa fa-sign-in-alt"></i>
-                    Sign In
+                <button type="submit" class="btn-corporate-red">
+                    <span>Authenticate</span>
+                    <i class="fas fa-arrow-right"></i>
                 </button>
             </form>
         </div>
     </div>
 </div>
-
-{% endblock%}
+{% endblock %}

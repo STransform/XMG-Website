@@ -1,0 +1,133 @@
+<section id="company-structure" class="section py-5 bg-light">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="display-4 fw-bold">Company Structure</h2>
+                <div class="divider border-primary mb-4 w-25 mx-auto border-2"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 overflow-auto d-flex justify-content-center">
+                <div class="tree">
+                    <ul>
+                        {% for node in company_structure_nodes %}
+                        {% if not node.parent %}
+                        {% include "front/landing_page/_company_structure_node.html" with current_node=node %}
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* CSS for Org Chart */
+    .tree ul {
+        padding-top: 20px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        padding-left: 0;
+    }
+
+    .tree li {
+        float: left;
+        text-align: center;
+        list-style-type: none;
+        position: relative;
+        padding: 20px 10px 0 10px;
+    }
+
+    /* Connecting lines */
+    .tree li::before,
+    .tree li::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 50%;
+        border-top: 2px solid #5aa1e5;
+        width: 50%;
+        height: 20px;
+    }
+
+    .tree li::after {
+        right: auto;
+        left: 50%;
+        border-left: 2px solid #5aa1e5;
+    }
+
+    .tree li:only-child::after,
+    .tree li:only-child::before {
+        display: none;
+    }
+
+    .tree li:only-child {
+        padding-top: 0;
+    }
+
+    .tree li:first-child::before,
+    .tree li:last-child::after {
+        border: 0 none;
+    }
+
+    .tree li:last-child::before {
+        border-right: 2px solid #5aa1e5;
+        border-radius: 0 0 0 0;
+    }
+
+    .tree li:first-child::after {
+        border-radius: 0 0 0 0;
+    }
+
+    .tree ul ul::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        border-left: 2px solid #5aa1e5;
+        width: 0;
+        height: 20px;
+    }
+
+    /* Node Styling */
+    .tree .node-box {
+        border: 0;
+        padding: 10px;
+        display: inline-block;
+        border-radius: 0px;
+        background-color: #5aa1e5;
+        color: white;
+        font-weight: bold;
+        min-width: 150px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .tree .node-wrapper {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tree .node-stats {
+        margin-top: 15px;
+        border-collapse: collapse;
+        width: 100%;
+        background-color: white;
+        color: black;
+        font-size: 13px;
+        font-weight: normal;
+    }
+
+    .tree .node-stats td {
+        border: 1px solid #333;
+        padding: 5px;
+        text-align: left;
+    }
+
+    .tree .node-stats td.qty {
+        text-align: center;
+        width: 30px;
+    }
+</style>

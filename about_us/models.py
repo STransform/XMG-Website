@@ -286,3 +286,24 @@ class NokiaProject(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CompanyStructureNode(models.Model):
+    title = models.CharField(max_length=150, help_text="Job Title or Department Name (e.g., PROJECT MANAGER)")
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children', help_text="Select the higher level in the hierarchy. Leave blank for the top-most position.")
+    team_leader_count = models.PositiveIntegerField(default=0, blank=True, null=True, help_text="Number of Team Leaders")
+    technician_count = models.PositiveIntegerField(default=0, blank=True, null=True, help_text="Number of Technicians")
+    daily_laborer_count = models.PositiveIntegerField(default=0, blank=True, null=True, help_text="Number of Daily Laborers")
+    order = models.PositiveSmallIntegerField(default=0, blank=True, null=True, help_text="Display order for siblings")
+
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Company Structure Node"
+        verbose_name_plural = "Company Structure Nodes"
+
+    def __str__(self):
+        return self.title
+
+    def get_list_fields():
+        return ['title', 'parent', 'team_leader_count', 'technician_count', 'daily_laborer_count']
+    list_fields = get_list_fields()

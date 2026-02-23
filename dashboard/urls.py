@@ -11,6 +11,5 @@ urlpatterns = [
     path('delete/<str:model_name>/<int:pk>/', DeleteView.as_view(), name="delete_view"),
     path('approve_comment/<int:pk>/', ApproveComment.as_view(), name="approve_comment"),
     path('supplier_detail/<str:tin>/', SupplierDetail.as_view(), name='supplier_detail'),
- 
+    path('structure/', CompanyStructureKanbanView.as_view(), name='structure_kanban'),
 ]
-

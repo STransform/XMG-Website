@@ -238,4 +238,17 @@ class SupplierDetail(LoginRequiredMixin, View):
         suppliers = ArchivedSupplier.objects.filter(tin=self.kwargs['tin'])
         return render (self.request, "staff/supplier_detail.html", {'suppliers':suppliers})
     
-    
+from about_us.models import CompanyStructureNode
+
+class CompanyStructureKanbanView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = "view"
+    def dispatch(self, request, *args, **kwargs):
+        # We need to set self.config manually since we are overriding dispatch
+        # and checking permissions manually against 'view_companystructurenode'
+        if not self.request.user.has_perm("about_us.view_companystructurenode"):
+            return self.handle_no_permission()
+        return super(PermissionRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        nodes = CompanyStructureNode.objects.all().select_related('parent')
+        return render(request, "staff/structure_kanban.html", {'nodes': nodes})
